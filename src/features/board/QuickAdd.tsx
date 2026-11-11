@@ -1,8 +1,7 @@
 import { Plus } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { cardsRepo } from '@/data/repos'
-import { isUrl } from '@/lib/format'
+import { createCardFromText } from '@/features/capture/capture'
 import { cn } from '@/lib/utils'
 
 type Props = {
@@ -24,13 +23,7 @@ export function QuickAdd({ boardId, columnId, trackId, prominent }: Props) {
     const value = text.trim()
     if (!value) return
     setText('')
-    await cardsRepo.create({
-      boardId,
-      columnId,
-      trackId,
-      titulo: value,
-      url: isUrl(value) ? value : null,
-    })
+    await createCardFromText(value, { boardId, columnId, trackId }, 'fim')
   }
 
   if (!open) {

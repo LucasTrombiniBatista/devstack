@@ -7,7 +7,10 @@ import { bump, createRepo } from './base'
 const base = createRepo(db.cards)
 
 export type NewCard = Pick<Card, 'boardId' | 'columnId' | 'titulo'> &
-  Partial<Omit<Data<Card>, 'ordem' | 'concluidoEm'>>
+  Partial<Omit<Data<Card>, 'ordem' | 'concluidoEm'>> & {
+    /** Onde entra na coluna; o padrão é o fim. */
+    posicao?: 'inicio' | 'fim'
+  }
 
 async function listByColumn(columnId: string): Promise<Card[]> {
   return (await base.listBy('columnId', columnId)).sort(byOrdem)
@@ -28,10 +31,11 @@ export const cardsRepo = {
     return (await base.listBy('boardId', boardId)).sort(byOrdem)
   },
 
-  /** Cria o card no fim da coluna. */
-  async create(input: NewCard): Promise<Card> {
-    return db.transaction('rw', db.cards, db.columns, async () =>
-      base.create({
+  /** Cria o card no fim da coluna (ou no início, com `posicao`). */
+  async create({ posicao = 'fim', ...input }: NewCard): Promise<Card> {
+    return db.transaction('rw', db.cards, db.columns, async () => {
+      const siblings = await listByColumn(input.columnId)
+      return base.create({
         trackId: null,
         url: null,
         tipo: 'leitura',
@@ -45,10 +49,10 @@ export const cardsRepo = {
         miniaturaUrl: null,
         links: [],
         ...input,
-        ordem: ordemAtEnd(await listByColumn(input.columnId)),
+        ordem: posicao === 'inicio' ? ordemAtIndex(siblings, 0) : ordemAtEnd(siblings),
         concluidoEm: await concluidoEmFor(input.columnId, null),
-      }),
-    )
+      })
+    })
   },
 
   /**
