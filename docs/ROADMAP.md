@@ -104,12 +104,20 @@ Como ficou:
 
 **Pronto quando:** o timer continua certo após recarregar e com a aba em segundo plano; fluxo 3 da seção 4 coberto por Playwright.
 
-### Fase 5: Semana e meta diária (seção 3.2, versão básica)
+### Fase 5: Semana e meta diária (seção 3.2, versão básica) ✅
 
-- [ ] Visão semanal: arrastar card para dia e hora cria `PlanBlock`; mover e redimensionar
-- [ ] Capacidade da semana: "planejado × disponível" com alerta
-- [ ] Meta diária simples (horas de foco ou número de cards)
-- [ ] Encerrar o dia: resumo e botão para empurrar pendentes
+- [x] Visão semanal: arrastar card para dia e hora cria `PlanBlock`; mover e redimensionar
+- [x] Capacidade da semana: "planejado × disponível" com alerta
+- [x] Meta diária simples (horas de foco ou número de cards)
+- [x] Encerrar o dia: resumo e botão para empurrar pendentes
+
+Como ficou:
+
+- A grade vai das 7h às 23h em fatias de 30 minutos. A lista ao lado traz os cards de Backlog, Esta semana e Hoje; cada um tem também um botão de agenda para planejar pelo teclado.
+- O bloco nasce com a estimativa do card, entre 30 min e 2h (1h quando não há estimativa). Planejar tira o card do Backlog e o põe em "Esta semana".
+- A tela Hoje (`/today`) mostra a meta, o que está planejado para o dia e os cards da coluna Hoje. A meta vale do dia em que foi definida em diante, até mudar de novo.
+- Encerrar o dia mostra o foco e os cards concluídos e empurra para amanhã, no mesmo horário, os blocos de cards não concluídos.
+- A capacidade semanal fica em Configurações → Planejamento.
 
 Fora do MVP: blocos recorrentes e tela de revisão semanal (V1).
 
