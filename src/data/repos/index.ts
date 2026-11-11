@@ -1,13 +1,19 @@
 import { db } from '@/data/db'
-import type { ChecklistItem, Column, Data, Session, Track } from '@/data/types'
+import type {
+  ChecklistItem,
+  Column,
+  DailyGoal,
+  Data,
+  PlanBlock,
+  Session,
+  Track,
+} from '@/data/types'
 import { byOrdem, ordemAtEnd, ordemAtIndex } from '@/lib/order'
 import { bump, createRepo } from './base'
 
 export { cardsRepo, type NewCard } from './cards'
 
 export const boardsRepo = createRepo(db.boards)
-export const planBlocksRepo = createRepo(db.planBlocks)
-export const dailyGoalsRepo = createRepo(db.dailyGoals)
 export const settingsRepo = createRepo(db.settings)
 
 const sessionsBase = createRepo(db.sessions)
@@ -154,5 +160,49 @@ export const checklistRepo = {
         ordem: ordemAtEnd(await listChecklist(input.cardId)),
       }),
     )
+  },
+}
+
+const planBase = createRepo(db.planBlocks)
+
+export const planBlocksRepo = {
+  ...planBase,
+
+  /** Blocos dos dias pedidos, em ordem de dia e horário. */
+  async listByDays(days: string[]): Promise<PlanBlock[]> {
+    return (await db.planBlocks.where('dia').anyOf(days).toArray())
+      .filter((block) => block.removidoEm === null)
+      .sort((a, b) => (a.dia + a.inicio < b.dia + b.inicio ? -1 : 1))
+  },
+}
+
+/** Meta usada quando a pessoa nunca definiu uma: 2 horas de foco. */
+export const DEFAULT_GOAL = { tipoMeta: 'horas', valorMeta: 120 } as const
+
+const goalsBase = createRepo(db.dailyGoals)
+
+export const dailyGoalsRepo = {
+  ...goalsBase,
+
+  /** Meta do dia. Sem meta própria, o dia herda a última definida antes dele. */
+  async forDay(
+    day: string,
+  ): Promise<Pick<DailyGoal, 'tipoMeta' | 'valorMeta'> & { id: string | null }> {
+    const goals = (await goalsBase.list())
+      .filter((goal) => goal.data <= day)
+      .sort((a, b) => (a.data < b.data ? 1 : -1))
+    const [latest] = goals
+    if (!latest) return { ...DEFAULT_GOAL, id: null }
+    return {
+      tipoMeta: latest.tipoMeta,
+      valorMeta: latest.valorMeta,
+      id: latest.data === day ? latest.id : null,
+    }
+  },
+
+  async setForDay(day: string, tipoMeta: DailyGoal['tipoMeta'], valorMeta: number) {
+    const current = await dailyGoalsRepo.forDay(day)
+    if (current.id) return goalsBase.update(current.id, { tipoMeta, valorMeta })
+    return goalsBase.create({ data: day, tipoMeta, valorMeta })
   },
 }
