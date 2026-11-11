@@ -85,13 +85,22 @@ Como ficou:
 
 **Pronto quando:** importar a Parte B gera as trilhas e os cards corretos; exportar JSON, limpar o banco e importar devolve o mesmo estado.
 
-### Fase 4: Timer de foco (seção 3.3)
+### Fase 4: Timer de foco (seção 3.3) ✅
 
-- [ ] Pomodoro configurável e cronômetro livre
-- [ ] Iniciar pelo card grava `Session` e soma no tempo real do card
-- [ ] Mini-timer no cabeçalho; notificação e som opcional
-- [ ] Modo foco (`/focus/:cardId`): só card, timer e notas
-- [ ] Sessões por card com criação e edição manual
+- [x] Pomodoro configurável e cronômetro livre
+- [x] Iniciar pelo card grava `Session` e soma no tempo real do card
+- [x] Mini-timer na barra lateral; notificação e som opcional
+- [x] Modo foco (`/focus/:cardId`): só card, timer e notas
+- [x] Sessões por card com criação e edição manual
+
+Como ficou:
+
+- O timer guarda instantes, não segundos restantes. Recarregar, fechar o app ou deixar a aba em segundo plano não atrasa a contagem; ao voltar, a fase que venceu é fechada no instante em que venceu.
+- Depois do foco a pausa começa sozinha. Depois da pausa o timer espera a pessoa iniciar o próximo foco.
+- Só o foco vira sessão; pausas não são gravadas. Menos de 30 segundos não conta. Encerrar ou pular antes da hora grava o tempo parcial.
+- O card mostra "estudado de estimado" (por exemplo "4h20 de 10h") e fica escuro com a contagem enquanto o timer está nele.
+- Iniciar o foco abre o link do card em outra aba; dá para desligar nas configurações, junto com a notificação e o som.
+- O estado do timer fica no `localStorage` do dispositivo e não entra no backup; as sessões entram.
 
 **Pronto quando:** o timer continua certo após recarregar e com a aba em segundo plano; fluxo 3 da seção 4 coberto por Playwright.
 

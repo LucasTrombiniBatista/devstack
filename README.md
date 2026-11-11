@@ -7,7 +7,7 @@ App web e desktop, local-first, para controlar o que você está estudando. Cada
 - **Especificação e backlog de estudo:** [`DevStack.md`](DevStack.md)
 - **Fases de desenvolvimento e estado atual:** [`docs/ROADMAP.md`](docs/ROADMAP.md)
 
-Estado: Fases 0 a 3 concluídas. Kanban completo, colar link para criar card, paleta de comandos (`Ctrl/Cmd + K`), importação de listas em Markdown (incluindo a Parte B do `DevStack.md`) e exportação em JSON, Markdown e CSV. Tudo fica guardado no navegador.
+Estado: Fases 0 a 4 concluídas. Kanban completo, colar link para criar card, paleta de comandos (`Ctrl/Cmd + K`), importação de listas em Markdown (incluindo a Parte B do `DevStack.md`), exportação em JSON, Markdown e CSV, e timer de foco (pomodoro ou cronômetro) ligado ao card, com modo foco e registro de sessões. Tudo fica guardado no navegador.
 
 ## Como rodar
 
