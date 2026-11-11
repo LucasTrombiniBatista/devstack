@@ -4,10 +4,11 @@ import { startApplyingSettings } from '@/app/apply-settings'
 import { AppShell } from '@/app/layout/AppShell'
 import { BoardPage } from '@/features/board/BoardPage'
 import { SettingsPage } from '@/app/pages/SettingsPage'
-import { WeekPage } from '@/app/pages/WeekPage'
 import { seedLabels } from '@/app/seed-labels'
 import { useSettings } from '@/app/settings-store'
 import { ensureSeed } from '@/data/seed'
+import { TodayPage } from '@/features/planner/TodayPage'
+import { WeekPage } from '@/features/planner/WeekPage'
 import { FocusPage } from '@/features/timer/FocusPage'
 import { TimerRunner } from '@/features/timer/TimerRunner'
 
@@ -25,6 +26,7 @@ export function App() {
         <Route element={<AppShell />}>
           <Route index element={<Navigate to="/board" replace />} />
           <Route path="board" element={<BoardPage />} />
+          <Route path="today" element={<TodayPage />} />
           <Route path="week" element={<WeekPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="*" element={<Navigate to="/board" replace />} />

@@ -12,6 +12,7 @@
   },
   "nav": {
     "board": "Board",
+    "today": "Today",
     "week": "Week",
     "settings": "Settings"
   },
@@ -207,7 +208,55 @@
   },
   "week": {
     "title": "Week",
-    "empty": "The weekly view arrives in Phase 5."
+    "capacity": "Planned {{planned}} of {{capacity}}",
+    "over": "{{time}} over",
+    "prev": "Previous week",
+    "next": "Next week",
+    "thisWeek": "This week",
+    "toPlan": "To plan",
+    "hint": "Drag a card to a day and time, or use the calendar button.",
+    "search": "Filter cards",
+    "noCandidates": "No cards in Backlog, This week or Today.",
+    "planned": "{{time}} this week",
+    "plan": "Plan card",
+    "planNamed": "Plan {{name}}",
+    "editBlock": "Edit block",
+    "day": "Day",
+    "start": "Start",
+    "end": "End",
+    "removeBlock": "Remove block",
+    "openCard": "Open card"
+  },
+  "today": {
+    "title": "Today",
+    "goal": "Daily goal",
+    "goalMet": "Goal met",
+    "leftTime": "{{time}} to go",
+    "leftCards_one": "{{count}} card to go",
+    "leftCards_other": "{{count}} cards to go",
+    "doneOf": "{{done}} of {{target}}",
+    "goalType": "Measure by",
+    "hours": "Focus hours",
+    "cards": "Cards done",
+    "goalHours": "Hours",
+    "goalCards": "Cards",
+    "plan": "Planned for today",
+    "noPlan": "Nothing planned for today. Use the weekly view to book time.",
+    "column": "In the Today column",
+    "noCards": "No cards in the Today column.",
+    "focusOn": "Start focus on {{name}}",
+    "endDay": "End the day",
+    "summary_zero": "{{time}} of focus and no cards done.",
+    "summary_one": "{{time}} of focus and {{count}} card done.",
+    "summary_other": "{{time}} of focus and {{count}} cards done.",
+    "pending_one": "{{count}} block is still pending:",
+    "pending_other": "{{count}} blocks are still pending:",
+    "nothingPending": "Nothing pending in today's plan.",
+    "push_one": "Push {{count}} to tomorrow",
+    "push_other": "Push {{count}} to tomorrow",
+    "moved_one": "{{count}} block moved to tomorrow.",
+    "moved_other": "{{count}} blocks moved to tomorrow.",
+    "close": "Close"
   },
   "settings": {
     "title": "Settings",
@@ -237,6 +286,11 @@
       "notify": "Notify when time is up",
       "sound": "Play a sound when time is up",
       "openContent": "Open the card's content when focus starts"
+    },
+    "planning": {
+      "title": "Planning",
+      "capacity": "Hours available per week",
+      "capacityHint": "The weekly view warns when the plan goes past this."
     }
   },
   "seed": {

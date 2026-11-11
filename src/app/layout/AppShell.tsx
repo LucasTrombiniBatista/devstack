@@ -5,6 +5,7 @@ import {
   Plus,
   Search,
   Settings,
+  Sun,
   type LucideIcon,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -27,6 +28,7 @@ import { cn } from '@/lib/utils'
 
 const NAV_ITEMS: { to: string; labelKey: string; icon: LucideIcon }[] = [
   { to: '/board', labelKey: 'nav.board', icon: Columns3 },
+  { to: '/today', labelKey: 'nav.today', icon: Sun },
   { to: '/week', labelKey: 'nav.week', icon: CalendarDays },
   { to: '/settings', labelKey: 'nav.settings', icon: Settings },
 ]

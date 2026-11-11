@@ -3,6 +3,7 @@ import { Page } from '@/app/layout/Page'
 import { LANGUAGES, useSettings } from '@/app/settings-store'
 import { SegmentedControl } from '@/components/SegmentedControl'
 import { DataSettings } from '@/features/importer/DataSettings'
+import { PlanningSettings } from '@/features/planner/PlanningSettings'
 import { TimerSettings } from '@/features/timer/TimerSettings'
 
 export function SettingsPage() {
@@ -43,6 +44,7 @@ export function SettingsPage() {
           />
         </div>
       </section>
+      <PlanningSettings />
       <TimerSettings />
       <DataSettings />
     </Page>

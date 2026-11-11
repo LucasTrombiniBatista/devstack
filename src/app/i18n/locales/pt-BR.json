@@ -12,6 +12,7 @@
   },
   "nav": {
     "board": "Quadro",
+    "today": "Hoje",
     "week": "Semana",
     "settings": "Configurações"
   },
@@ -207,7 +208,55 @@
   },
   "week": {
     "title": "Semana",
-    "empty": "A visão semanal chega na Fase 5."
+    "capacity": "Planejado {{planned}} de {{capacity}}",
+    "over": "Passou {{time}}",
+    "prev": "Semana anterior",
+    "next": "Próxima semana",
+    "thisWeek": "Esta semana",
+    "toPlan": "Para planejar",
+    "hint": "Arraste um card para o dia e o horário, ou use o botão de agenda.",
+    "search": "Filtrar cards",
+    "noCandidates": "Nenhum card no Backlog, em Esta semana ou em Hoje.",
+    "planned": "{{time}} na semana",
+    "plan": "Planejar card",
+    "planNamed": "Planejar {{name}}",
+    "editBlock": "Editar bloco",
+    "day": "Dia",
+    "start": "Início",
+    "end": "Fim",
+    "removeBlock": "Remover bloco",
+    "openCard": "Abrir card"
+  },
+  "today": {
+    "title": "Hoje",
+    "goal": "Meta do dia",
+    "goalMet": "Meta batida",
+    "leftTime": "Falta {{time}}",
+    "leftCards_one": "Falta {{count}} card",
+    "leftCards_other": "Faltam {{count}} cards",
+    "doneOf": "{{done}} de {{target}}",
+    "goalType": "Medir por",
+    "hours": "Horas de foco",
+    "cards": "Cards concluídos",
+    "goalHours": "Horas",
+    "goalCards": "Cards",
+    "plan": "Planejado para hoje",
+    "noPlan": "Nada planejado para hoje. Use a visão semanal para marcar horários.",
+    "column": "Na coluna Hoje",
+    "noCards": "Nenhum card na coluna Hoje.",
+    "focusOn": "Iniciar foco em {{name}}",
+    "endDay": "Encerrar o dia",
+    "summary_zero": "{{time}} de foco e nenhum card concluído.",
+    "summary_one": "{{time}} de foco e {{count}} card concluído.",
+    "summary_other": "{{time}} de foco e {{count}} cards concluídos.",
+    "pending_one": "{{count}} bloco ficou pendente:",
+    "pending_other": "{{count}} blocos ficaram pendentes:",
+    "nothingPending": "Nada pendente no plano de hoje.",
+    "push_one": "Empurrar {{count}} para amanhã",
+    "push_other": "Empurrar {{count}} para amanhã",
+    "moved_one": "{{count}} bloco foi para amanhã.",
+    "moved_other": "{{count}} blocos foram para amanhã.",
+    "close": "Fechar"
   },
   "settings": {
     "title": "Configurações",
@@ -237,6 +286,11 @@
       "notify": "Notificar quando o tempo acabar",
       "sound": "Tocar um som quando o tempo acabar",
       "openContent": "Abrir o conteúdo do card ao iniciar o foco"
+    },
+    "planning": {
+      "title": "Planejamento",
+      "capacity": "Horas disponíveis por semana",
+      "capacityHint": "A visão semanal avisa quando o planejado passa disso."
     }
   },
   "seed": {

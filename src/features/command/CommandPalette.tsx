@@ -7,6 +7,7 @@ import {
   ListPlus,
   Plus,
   Settings,
+  Sun,
   SunMoon,
   Timer,
   type LucideIcon,
@@ -97,6 +98,12 @@ export function CommandPalette() {
       label: t('command.goTo', { page: t('nav.board') }),
       icon: Columns3,
       run: () => void navigate('/board'),
+    },
+    {
+      id: 'today',
+      label: t('command.goTo', { page: t('nav.today') }),
+      icon: Sun,
+      run: () => void navigate('/today'),
     },
     {
       id: 'week',
