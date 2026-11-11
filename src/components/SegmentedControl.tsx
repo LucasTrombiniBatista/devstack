@@ -17,7 +17,7 @@ export function SegmentedControl<T extends string>({ label, value, options, onCh
   return (
     <fieldset className="flex flex-wrap items-center justify-between gap-3">
       <legend className="float-left text-sm font-medium">{label}</legend>
-      <div className="inline-flex rounded-lg bg-muted p-1">
+      <div className="inline-flex rounded-lg bg-(--sidebar-well) p-1">
         {options.map((option) => (
           <label
             key={option.value}
@@ -25,7 +25,7 @@ export function SegmentedControl<T extends string>({ label, value, options, onCh
               'cursor-pointer rounded-md px-3 py-1 text-sm transition-colors',
               'has-focus-visible:ring-2 has-focus-visible:ring-ring',
               option.value === value
-                ? 'bg-background font-medium text-foreground shadow-sm'
+                ? 'bg-foreground font-bold text-background'
                 : 'text-muted-foreground hover:text-foreground',
             )}
           >

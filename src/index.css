@@ -1,13 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
+@import "@fontsource-variable/nunito";
+@import "@fontsource-variable/jetbrains-mono";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
     --font-heading: var(--font-sans);
-    --font-sans: 'Geist Variable', sans-serif;
+    --font-sans: 'Nunito Variable', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -39,6 +41,16 @@
     --color-card: var(--card);
     --color-foreground: var(--foreground);
     --color-background: var(--background);
+    --color-brand: var(--brand);
+    --color-brand-strong: var(--brand-strong);
+    --color-brand-foreground: var(--brand-foreground);
+    --color-well: var(--well);
+    --color-track: var(--track);
+    --color-dash: var(--dashed);
+    --color-card-muted: var(--card-muted);
+    --color-card-border: var(--card-border);
+    --color-card-track: var(--card-track);
+    --color-ink: var(--ink);
     --radius-sm: calc(var(--radius) * 0.6);
     --radius-md: calc(var(--radius) * 0.8);
     --radius-lg: var(--radius);
@@ -48,73 +60,101 @@
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/*
+ * Paleta "Carmim": creme, tinta e vermelho carmim.
+ * Os cards são creme nos dois temas, por isso têm tokens próprios que não mudam.
+ */
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
+    --ink: #25272a;
+    --card: #faf6ec;
+    --card-foreground: #25272a;
+    --card-muted: #6b6f74;
+    --card-border: #e2d9c7;
+    --card-track: #e2d9c7;
+    --brand-strong: #b81437;
+    --brand-foreground: #faf6ec;
+
+    --track-carmim: #b81437;
+    --track-coral: #e0314f;
+    --track-rosa: #e79aaa;
+    --track-cinza: #a6aaaf;
+    --track-tinta: #25272a;
+
+    --background: #f1eadc;
+    --foreground: #25272a;
+    --popover: #faf6ec;
+    --popover-foreground: #25272a;
+    --primary: #b81437;
+    --primary-foreground: #faf6ec;
+    --secondary: #e6ddcb;
+    --secondary-foreground: #25272a;
+    --muted: #e6ddcb;
+    --muted-foreground: #6b6f74;
+    --accent: #e6ddcb;
+    --accent-foreground: #25272a;
+    --destructive: #8e0f2a;
+    --border: #e2d9c7;
+    --input: #d6ccb8;
+    --ring: #b81437;
+    --brand: #b81437;
+    --well: #e6ddcb;
+    --track: #e2d9c7;
+    --dashed: #bfc2c6;
+    --chart-1: #b81437;
+    --chart-2: #25272a;
+    --chart-3: #e79aaa;
+    --chart-4: #a6aaaf;
+    --chart-5: #e0314f;
     --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+    --sidebar: #faf6ec;
+    --sidebar-foreground: #25272a;
+    --sidebar-primary: #b81437;
+    --sidebar-primary-foreground: #faf6ec;
+    --sidebar-accent: #25272a;
+    --sidebar-accent-foreground: #faf6ec;
+    --sidebar-border: #e2d9c7;
+    --sidebar-ring: #b81437;
+    --sidebar-well: #f1eadc;
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+    --track-cinza: #6b6f74;
+    --track-tinta: #f5efe4;
+
+    --background: #25272a;
+    --foreground: #f5efe4;
+    --popover: #1b1d1f;
+    --popover-foreground: #f5efe4;
+    --primary: #f5efe4;
+    --primary-foreground: #25272a;
+    --secondary: #2a2d31;
+    --secondary-foreground: #f5efe4;
+    --muted: #2a2d31;
+    --muted-foreground: #9ba0a6;
+    --accent: #33373c;
+    --accent-foreground: #f5efe4;
+    --destructive: #e0314f;
+    --border: #4a4e54;
+    --input: #4a4e54;
+    --ring: #e0314f;
+    --brand: #e0314f;
+    --well: #1b1d1f;
+    --track: #43474c;
+    --dashed: #5a5f65;
+    --chart-1: #e0314f;
+    --chart-2: #f5efe4;
+    --chart-3: #e79aaa;
+    --chart-4: #6b6f74;
+    --chart-5: #b81437;
+    --sidebar: #1b1d1f;
+    --sidebar-foreground: #dadcdf;
+    --sidebar-primary: #e0314f;
+    --sidebar-primary-foreground: #f5efe4;
+    --sidebar-accent: #b81437;
+    --sidebar-accent-foreground: #f5efe4;
+    --sidebar-border: #1b1d1f;
+    --sidebar-ring: #e0314f;
+    --sidebar-well: #2a2d31;
 }
 
 @layer base {
@@ -122,7 +162,8 @@
     @apply border-border outline-ring/50;
     }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-synthesis: none;
     }
   button:not(:disabled), [role="button"]:not(:disabled) {
     cursor: pointer;
@@ -130,4 +171,77 @@
   html {
     @apply font-sans;
     }
+}
+
+/* Densidade compacta: tudo que usa rem encolhe junto. */
+html[data-density='compact'] {
+    font-size: 14px;
+}
+
+/* Notas em Markdown. */
+.markdown {
+    @apply text-sm leading-6;
+}
+.markdown > * + * {
+    @apply mt-3;
+}
+.markdown h1 {
+    @apply text-lg font-extrabold;
+}
+.markdown h2 {
+    @apply text-base font-extrabold;
+}
+.markdown h3 {
+    @apply text-sm font-extrabold;
+}
+.markdown ul {
+    @apply list-disc pl-5;
+}
+.markdown ol {
+    @apply list-decimal pl-5;
+}
+.markdown a {
+    @apply font-bold text-brand underline underline-offset-2;
+}
+.markdown blockquote {
+    @apply border-l-2 pl-3 text-muted-foreground;
+}
+.markdown code {
+    @apply rounded bg-muted px-1 py-0.5 font-mono text-[0.85em];
+}
+.markdown pre {
+    @apply overflow-x-auto rounded-lg bg-muted p-3;
+}
+.markdown pre code {
+    @apply bg-transparent p-0;
+}
+.markdown table {
+    @apply w-full border-collapse text-left;
+}
+.markdown th,
+.markdown td {
+    @apply border px-2 py-1;
+}
+.markdown input[type='checkbox'] {
+    @apply mr-1.5 align-middle;
+}
+.markdown .hljs-comment,
+.markdown .hljs-quote {
+    @apply text-muted-foreground italic;
+}
+.markdown .hljs-keyword,
+.markdown .hljs-selector-tag,
+.markdown .hljs-literal,
+.markdown .hljs-built_in {
+    @apply font-bold text-brand;
+}
+.markdown .hljs-string,
+.markdown .hljs-attr,
+.markdown .hljs-number {
+    color: color-mix(in oklab, var(--brand) 55%, var(--foreground));
+}
+.markdown .hljs-title,
+.markdown .hljs-section,
+.markdown .hljs-type {
+    @apply font-bold;
 }

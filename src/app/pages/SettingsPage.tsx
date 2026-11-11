@@ -13,7 +13,7 @@ export function SettingsPage() {
         <h2 id="settings-appearance" className="text-sm font-medium text-muted-foreground">
           {t('settings.appearance')}
         </h2>
-        <div className="flex flex-col gap-4 rounded-xl border bg-card p-4 text-card-foreground">
+        <div className="flex flex-col gap-4 rounded-2xl border bg-sidebar p-4">
           <SegmentedControl
             label={t('settings.theme.label')}
             value={theme}
