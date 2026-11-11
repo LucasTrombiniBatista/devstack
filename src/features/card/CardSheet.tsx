@@ -1,7 +1,8 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { ExternalLink, Trash2 } from 'lucide-react'
-import { lazy, Suspense, useState, type ReactNode } from 'react'
+import { ExternalLink, Focus, Play, Timer, Trash2 } from 'lucide-react'
+import { useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router'
 import { useUi } from '@/app/ui-store'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -14,20 +15,22 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@/components/ui/sheet'
-import { Slider } from '@/components/ui/slider'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Textarea } from '@/components/ui/textarea'
-import { cardsRepo, checklistRepo, columnsRepo, tracksRepo } from '@/data/repos'
+import { cardsRepo, checklistRepo, columnsRepo, sessionsRepo, tracksRepo } from '@/data/repos'
 import type { Card, CardPrioridade, CardTipo, ChecklistItem, Column, Track } from '@/data/types'
 import { PRIORIDADES, TIPOS } from '@/features/card/options'
+import { isEngaged } from '@/features/timer/engine'
+import { SessionsEditor } from '@/features/timer/SessionsEditor'
+import { spentLabel } from '@/features/timer/spent'
+import { useTimer } from '@/features/timer/store'
+import { startFocus } from '@/features/timer/useClock'
 import { TrackDot } from '@/features/tracks/TrackDot'
 import { parseTags } from '@/lib/format'
 import { ChecklistEditor } from './ChecklistEditor'
 import { LinksEditor } from './LinksEditor'
-import { cardProgress } from './progress'
+import { NotesEditor } from './NotesEditor'
+import { ProgressEditor } from './ProgressEditor'
 import { useDraft } from './useDraft'
 
-const Markdown = lazy(() => import('./Markdown'))
 const NONE = '__none'
 
 type Loaded = { card: Card; columns: Column[]; tracks: Track[]; items: ChecklistItem[] }
@@ -73,11 +76,55 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
   )
 }
 
+/** Tempo estudado no card e os botões que ligam o timer e levam ao modo foco. */
+function FocusBar({ card }: { card: Card }) {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const closeCard = useUi((state) => state.closeCard)
+  const active = useTimer((state) => isEngaged(state) && state.cardId === card.id)
+  const spent = useLiveQuery(
+    async () => (await sessionsRepo.listByCard(card.id)).reduce((sum, s) => sum + s.duracaoMin, 0),
+    [card.id],
+  )
+
+  function go(mode?: 'pomodoro' | 'livre') {
+    if (mode) void startFocus(card, mode)
+    closeCard()
+    void navigate(`/focus/${card.id}`)
+  }
+
+  return (
+    <div className="flex flex-col gap-2 rounded-xl bg-well p-2.5">
+      <span className="px-1 text-sm font-bold">
+        {spent
+          ? t('timer.studied', { time: spentLabel(t, spent, card.estimativaMin) })
+          : t('timer.noTime')}
+      </span>
+      {active ? (
+        <Button onClick={() => go()}>
+          <Focus aria-hidden />
+          {t('timer.openFocus')}
+        </Button>
+      ) : (
+        <div className="flex gap-2">
+          <Button className="flex-1" onClick={() => go('pomodoro')}>
+            <Play aria-hidden />
+            {t('timer.start')}
+          </Button>
+          <Button className="flex-1" variant="outline" onClick={() => go('livre')}>
+            <Timer aria-hidden />
+            {t('timer.stopwatch')}
+          </Button>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function CardForm({ card, columns, tracks, items }: Loaded) {
   const { t } = useTranslation()
   const closeCard = useUi((state) => state.closeCard)
   const [confirming, setConfirming] = useState(false)
-  const [slider, setSlider] = useState<number | null>(null)
   const save = (patch: Parameters<typeof cardsRepo.update>[1]) =>
     void cardsRepo.update(card.id, patch)
 
@@ -100,10 +147,7 @@ function CardForm({ card, columns, tracks, items }: Loaded) {
       save({ estimativaMin: Number.isFinite(hours) && hours > 0 ? Math.round(hours * 60) : null })
     },
   )
-  const notas = useDraft(card.notasMd, (value) => save({ notasMd: value }))
 
-  const done = items.filter((item) => item.feito).length
-  const progress = cardProgress(card, { done, total: items.length })
   const column = columns.find((c) => c.id === card.columnId)
 
   return (
@@ -155,6 +199,8 @@ function CardForm({ card, columns, tracks, items }: Loaded) {
           )}
         </div>
       </div>
+
+      <FocusBar card={card} />
 
       <div className="grid grid-cols-2 gap-3">
         <Field label={t('card.column')}>
@@ -244,37 +290,7 @@ function CardForm({ card, columns, tracks, items }: Loaded) {
       </div>
 
       <Section title={t('card.progress')}>
-        {items.length > 0 ? (
-          <div className="flex items-center gap-3">
-            <div className="flex h-1.5 flex-1 rounded-full bg-track">
-              <div
-                className="h-1.5 rounded-full bg-brand"
-                style={{ width: `${progress?.percent ?? 0}%` }}
-              />
-            </div>
-            <span className="text-xs font-bold text-muted-foreground">
-              {done}/{items.length}
-            </span>
-          </div>
-        ) : (
-          <div className="flex items-center gap-3">
-            <Slider
-              aria-label={t('card.progress')}
-              min={0}
-              max={100}
-              step={5}
-              value={[slider ?? card.progresso]}
-              onValueChange={([value]) => setSlider(value)}
-              onValueCommit={([value]) => {
-                setSlider(null)
-                save({ progresso: value })
-              }}
-            />
-            <span className="w-10 text-right text-xs font-bold text-muted-foreground">
-              {slider ?? card.progresso}%
-            </span>
-          </div>
-        )}
+        <ProgressEditor card={card} items={items} />
       </Section>
 
       <Section title={t('card.checklist')}>
@@ -282,29 +298,11 @@ function CardForm({ card, columns, tracks, items }: Loaded) {
       </Section>
 
       <Section title={t('card.notes')}>
-        <Tabs defaultValue="write">
-          <TabsList>
-            <TabsTrigger value="write">{t('card.write')}</TabsTrigger>
-            <TabsTrigger value="preview">{t('card.preview')}</TabsTrigger>
-          </TabsList>
-          <TabsContent value="write">
-            <Textarea
-              {...notas}
-              aria-label={t('card.notes')}
-              placeholder={t('card.notesPlaceholder')}
-              className="min-h-40 font-mono text-[0.8125rem]"
-            />
-          </TabsContent>
-          <TabsContent value="preview" className="min-h-40 rounded-lg border p-3">
-            {notas.value.trim() ? (
-              <Suspense fallback={null}>
-                <Markdown source={notas.value} />
-              </Suspense>
-            ) : (
-              <p className="text-sm text-muted-foreground">{t('card.emptyPreview')}</p>
-            )}
-          </TabsContent>
-        </Tabs>
+        <NotesEditor card={card} />
+      </Section>
+
+      <Section title={t('sessions.title')}>
+        <SessionsEditor cardId={card.id} />
       </Section>
 
       <Section title={t('card.extraLinks')}>

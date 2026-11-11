@@ -154,6 +154,57 @@
     "restored": "Backup restaurado.",
     "invalid": "Esse arquivo não é um backup do DevStack."
   },
+  "timer": {
+    "start": "Iniciar foco",
+    "stopwatch": "Cronômetro livre",
+    "startNoCard": "Iniciar foco sem card",
+    "pause": "Pausar",
+    "resume": "Continuar",
+    "skipToBreak": "Ir para a pausa",
+    "skipBreak": "Pular pausa",
+    "stop": "Encerrar",
+    "exit": "Sair do modo foco",
+    "openFocus": "Abrir modo foco",
+    "mini": "Timer de foco",
+    "clock": "Tempo",
+    "inFocus": "Em foco",
+    "onBreak": "Em pausa",
+    "paused": "Pausado",
+    "ready": "Pronto para o próximo foco",
+    "cycle": "ciclo {{n}}",
+    "noCard": "Foco sem card",
+    "spentOf": "{{spent}} de {{estimate}}",
+    "studied": "{{time}} estudados",
+    "noTime": "Nenhum tempo registrado",
+    "phase": {
+      "foco": "Foco",
+      "pausaCurta": "Pausa curta",
+      "pausaLonga": "Pausa longa",
+      "livre": "Cronômetro"
+    },
+    "done": {
+      "focus": "Foco concluído",
+      "focusBody": "Hora da pausa.",
+      "break": "Pausa encerrada",
+      "breakBody": "Pronto para o próximo foco."
+    }
+  },
+  "sessions": {
+    "title": "Sessões",
+    "empty": "Nenhuma sessão registrada. As do timer aparecem aqui sozinhas.",
+    "date": "Data da sessão",
+    "minutes": "Duração em minutos",
+    "newDate": "Data da nova sessão",
+    "newMinutes": "Minutos da nova sessão",
+    "minutesPlaceholder": "min",
+    "add": "Adicionar sessão",
+    "remove": "Remover sessão de {{date}}",
+    "total": "Total: {{total}}",
+    "origin": {
+      "timer": "timer",
+      "manual": "manual"
+    }
+  },
   "week": {
     "title": "Semana",
     "empty": "A visão semanal chega na Fase 5."
@@ -176,6 +227,16 @@
       "label": "Idioma",
       "pt-BR": "Português (Brasil)",
       "en": "English"
+    },
+    "timer": {
+      "title": "Timer",
+      "focoMin": "Foco (min)",
+      "pausaCurtaMin": "Pausa curta (min)",
+      "pausaLongaMin": "Pausa longa (min)",
+      "ciclosAtePausaLonga": "Focos até a pausa longa",
+      "notify": "Notificar quando o tempo acabar",
+      "sound": "Tocar um som quando o tempo acabar",
+      "openContent": "Abrir o conteúdo do card ao iniciar o foco"
     }
   },
   "seed": {

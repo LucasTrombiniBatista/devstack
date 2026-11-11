@@ -8,6 +8,7 @@ import {
   Plus,
   Settings,
   SunMoon,
+  Timer,
   type LucideIcon,
 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
@@ -27,6 +28,7 @@ import {
 import { cardsRepo } from '@/data/repos'
 import { EMPTY_FILTERS, matchesFilters } from '@/features/board/filters'
 import { captureTarget, createCardFromText } from '@/features/capture/capture'
+import { startFocus } from '@/features/timer/useClock'
 import { isUrl, normalizeText } from '@/lib/format'
 
 type Action = { id: string; label: string; icon: LucideIcon; run: () => void | Promise<void> }
@@ -80,6 +82,15 @@ export function CommandPalette() {
       label: t('import.title'),
       icon: ListPlus,
       run: () => openImport(),
+    },
+    {
+      id: 'focus',
+      label: t('timer.startNoCard'),
+      icon: Timer,
+      run: async () => {
+        await startFocus(null)
+        void navigate('/focus')
+      },
     },
     {
       id: 'board',

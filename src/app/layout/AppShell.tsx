@@ -18,6 +18,7 @@ import { captureTarget, createCardFromUrl } from '@/features/capture/capture'
 import { CardSheet } from '@/features/card/CardSheet'
 import { CommandPalette } from '@/features/command/CommandPalette'
 import { ImportDialog } from '@/features/importer/ImportDialog'
+import { MiniTimer } from '@/features/timer/MiniTimer'
 import { TrackDialog } from '@/features/tracks/TrackDialog'
 import { TrackDot } from '@/features/tracks/TrackDot'
 import { APP_NAME } from '@/lib/constants'
@@ -118,6 +119,8 @@ export function AppShell() {
             Ctrl K
           </button>
         </label>
+
+        <MiniTimer />
 
         <nav aria-label={t('app.mainNav')} className="flex gap-0.5 md:flex-col">
           {NAV_ITEMS.map(({ to, labelKey, icon: Icon }) => (

@@ -51,6 +51,13 @@
     --color-card-border: var(--card-border);
     --color-card-track: var(--card-track);
     --color-ink: var(--ink);
+    --color-focus: var(--focus);
+    --color-focus-foreground: var(--focus-foreground);
+    --color-focus-muted: var(--focus-muted);
+    --color-focus-track: var(--focus-track);
+    --color-focus-fill: var(--focus-fill);
+    --color-focus-pill: var(--focus-pill);
+    --color-focus-pill-foreground: var(--focus-pill-foreground);
     --radius-sm: calc(var(--radius) * 0.6);
     --radius-md: calc(var(--radius) * 0.8);
     --radius-lg: var(--radius);
@@ -73,6 +80,15 @@
     --card-track: #e2d9c7;
     --brand-strong: #b81437;
     --brand-foreground: #faf6ec;
+
+    /* Card em foco: tinta no tema claro, carmim no escuro. */
+    --focus: #25272a;
+    --focus-foreground: #faf6ec;
+    --focus-muted: #c9ccd0;
+    --focus-track: #43474c;
+    --focus-fill: #e0314f;
+    --focus-pill: #b81437;
+    --focus-pill-foreground: #faf6ec;
 
     --track-carmim: #b81437;
     --track-coral: #e0314f;
@@ -118,6 +134,13 @@
 }
 
 .dark {
+    --focus: #b81437;
+    --focus-muted: #f6cbd4;
+    --focus-track: #8e0f2a;
+    --focus-fill: #f5efe4;
+    --focus-pill: #f5efe4;
+    --focus-pill-foreground: #b81437;
+
     --track-cinza: #6b6f74;
     --track-tinta: #f5efe4;
 

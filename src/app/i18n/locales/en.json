@@ -154,6 +154,57 @@
     "restored": "Backup restored.",
     "invalid": "That file is not a DevStack backup."
   },
+  "timer": {
+    "start": "Start focus",
+    "stopwatch": "Stopwatch",
+    "startNoCard": "Start focus without a card",
+    "pause": "Pause",
+    "resume": "Resume",
+    "skipToBreak": "Go to break",
+    "skipBreak": "Skip break",
+    "stop": "End",
+    "exit": "Leave focus mode",
+    "openFocus": "Open focus mode",
+    "mini": "Focus timer",
+    "clock": "Time",
+    "inFocus": "In focus",
+    "onBreak": "On break",
+    "paused": "Paused",
+    "ready": "Ready for the next focus",
+    "cycle": "cycle {{n}}",
+    "noCard": "Focus without a card",
+    "spentOf": "{{spent}} of {{estimate}}",
+    "studied": "{{time}} studied",
+    "noTime": "No time logged yet",
+    "phase": {
+      "foco": "Focus",
+      "pausaCurta": "Short break",
+      "pausaLonga": "Long break",
+      "livre": "Stopwatch"
+    },
+    "done": {
+      "focus": "Focus finished",
+      "focusBody": "Time for a break.",
+      "break": "Break is over",
+      "breakBody": "Ready for the next focus."
+    }
+  },
+  "sessions": {
+    "title": "Sessions",
+    "empty": "No sessions yet. Timer sessions show up here on their own.",
+    "date": "Session date",
+    "minutes": "Duration in minutes",
+    "newDate": "New session date",
+    "newMinutes": "New session minutes",
+    "minutesPlaceholder": "min",
+    "add": "Add session",
+    "remove": "Remove session from {{date}}",
+    "total": "Total: {{total}}",
+    "origin": {
+      "timer": "timer",
+      "manual": "manual"
+    }
+  },
   "week": {
     "title": "Week",
     "empty": "The weekly view arrives in Phase 5."
@@ -176,6 +227,16 @@
       "label": "Language",
       "pt-BR": "Português (Brasil)",
       "en": "English"
+    },
+    "timer": {
+      "title": "Timer",
+      "focoMin": "Focus (min)",
+      "pausaCurtaMin": "Short break (min)",
+      "pausaLongaMin": "Long break (min)",
+      "ciclosAtePausaLonga": "Focuses before the long break",
+      "notify": "Notify when time is up",
+      "sound": "Play a sound when time is up",
+      "openContent": "Open the card's content when focus starts"
     }
   },
   "seed": {

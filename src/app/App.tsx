@@ -8,6 +8,8 @@ import { WeekPage } from '@/app/pages/WeekPage'
 import { seedLabels } from '@/app/seed-labels'
 import { useSettings } from '@/app/settings-store'
 import { ensureSeed } from '@/data/seed'
+import { FocusPage } from '@/features/timer/FocusPage'
+import { TimerRunner } from '@/features/timer/TimerRunner'
 
 export function App() {
   useEffect(() => startApplyingSettings(), [])
@@ -18,6 +20,7 @@ export function App() {
   // HashRouter: funciona igual em site estático e dentro do Tauri, sem regra de rewrite.
   return (
     <HashRouter>
+      <TimerRunner />
       <Routes>
         <Route element={<AppShell />}>
           <Route index element={<Navigate to="/board" replace />} />
@@ -26,6 +29,7 @@ export function App() {
           <Route path="settings" element={<SettingsPage />} />
           <Route path="*" element={<Navigate to="/board" replace />} />
         </Route>
+        <Route path="focus/:cardId?" element={<FocusPage />} />
       </Routes>
     </HashRouter>
   )

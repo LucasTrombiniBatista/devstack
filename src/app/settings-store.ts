@@ -11,9 +11,18 @@ type SettingsState = {
   theme: Theme
   density: Density
   language: Language
+  /** Notificação do sistema quando uma fase do timer termina. */
+  notify: boolean
+  /** Som quando uma fase do timer termina. */
+  sound: boolean
+  /** Abrir o link do card em outra aba ao iniciar o foco. */
+  openContent: boolean
   setTheme: (theme: Theme) => void
   setDensity: (density: Density) => void
   setLanguage: (language: Language) => void
+  setNotify: (notify: boolean) => void
+  setSound: (sound: boolean) => void
+  setOpenContent: (openContent: boolean) => void
 }
 
 function detectLanguage(): Language {
@@ -25,6 +34,9 @@ export const defaultSettings = {
   theme: 'system' as Theme,
   density: 'comfortable' as Density,
   language: detectLanguage(),
+  notify: true,
+  sound: true,
+  openContent: true,
 }
 
 /** Preferências de interface. Ficam no localStorage para aplicar antes do primeiro render. */
@@ -35,6 +47,9 @@ export const useSettings = create<SettingsState>()(
       setTheme: (theme) => set({ theme }),
       setDensity: (density) => set({ density }),
       setLanguage: (language) => set({ language }),
+      setNotify: (notify) => set({ notify }),
+      setSound: (sound) => set({ sound }),
+      setOpenContent: (openContent) => set({ openContent }),
     }),
     { name: 'devstack:settings', version: 1 },
   ),

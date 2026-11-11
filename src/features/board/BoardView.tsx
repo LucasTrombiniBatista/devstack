@@ -53,6 +53,7 @@ type CellProps = {
   cardsById: Map<string, Card>
   tracksById: Map<string, Track>
   checklist: Map<string, ChecklistCount>
+  spent: Map<string, number>
   onShowMore: () => void
 }
 
@@ -83,6 +84,7 @@ function Cell(props: CellProps) {
               card={card}
               track={card.trackId ? props.tracksById.get(card.trackId) : undefined}
               checklist={props.checklist.get(id)}
+              spentMin={props.spent.get(id) ?? 0}
             />
           )
         })}
@@ -112,7 +114,7 @@ const laneTrackId = (lane: Lane, filters: BoardFilters) =>
 export function BoardView({ data }: { data: BoardData }) {
   const { t } = useTranslation()
   const view = useBoardView()
-  const { board, columns, cards, tracks, checklist } = data
+  const { board, columns, cards, tracks, checklist, spent } = data
 
   const [limits, setLimits] = useState<Record<string, number>>({})
   const [activeId, setActiveId] = useState<string | null>(null)
@@ -275,6 +277,7 @@ export function BoardView({ data }: { data: BoardData }) {
         cardsById={cardsById}
         tracksById={tracksById}
         checklist={checklist}
+        spent={spent}
         onShowMore={() =>
           setLimits((current) => ({ ...current, [key]: (current[key] ?? PAGE_SIZE) + PAGE_SIZE }))
         }
@@ -381,6 +384,7 @@ export function BoardView({ data }: { data: BoardData }) {
               card={activeCard}
               track={activeCard.trackId ? tracksById.get(activeCard.trackId) : undefined}
               checklist={checklist.get(activeCard.id)}
+              spentMin={spent.get(activeCard.id) ?? 0}
             />
           </div>
         )}
