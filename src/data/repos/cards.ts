@@ -54,13 +54,20 @@ export const cardsRepo = {
   /**
    * Move o card para a posição `index` da coluna (contando sem ele).
    * Só o registro do card movido é gravado, graças ao índice fracionário.
+   * `patch` troca a trilha junto, quando o card é solto em outra raia.
    */
-  async move(id: string, columnId: string, index: number): Promise<Card> {
+  async move(
+    id: string,
+    columnId: string,
+    index: number,
+    patch: Partial<Pick<Card, 'trackId'>> = {},
+  ): Promise<Card> {
     return db.transaction('rw', db.cards, db.columns, async () => {
       const card = await base.get(id)
       if (!card) throw new Error(`cards: registro ${id} não encontrado`)
       const siblings = (await listByColumn(columnId)).filter((c) => c.id !== id)
       const next = bump(card, {
+        ...patch,
         columnId,
         ordem: ordemAtIndex(siblings, index),
         concluidoEm: await concluidoEmFor(columnId, card.concluidoEm),

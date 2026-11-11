@@ -7,7 +7,7 @@ App web e desktop, local-first, para controlar o que você está estudando. Cada
 - **Especificação e backlog de estudo:** [`DevStack.md`](DevStack.md)
 - **Fases de desenvolvimento e estado atual:** [`docs/ROADMAP.md`](docs/ROADMAP.md)
 
-Estado: Fases 0 (fundação) e 1 (dados locais) concluídas. O app abre o quadro inicial com as colunas padrão, guardado no navegador; os cards chegam na Fase 2.
+Estado: Fases 0 a 2 concluídas. O Kanban funciona: colunas com limite de WIP, cards com arrastar e soltar (mouse, toque e teclado), detalhe do card com notas em Markdown e checklist, trilhas, filtros e busca. Tudo fica guardado no navegador.
 
 ## Como rodar
 
@@ -34,7 +34,7 @@ Na primeira vez, o Playwright precisa do navegador: `pnpm exec playwright instal
 
 ## Stack
 
-React, TypeScript, Vite, Tailwind, shadcn/ui, Zustand, React Router e i18next. Dados locais em IndexedDB com Dexie. As próximas fases trazem dnd-kit e Tauri. Detalhes e justificativas em [`docs/ROADMAP.md`](docs/ROADMAP.md).
+React, TypeScript, Vite, Tailwind, shadcn/ui, Zustand, React Router e i18next. Dados locais em IndexedDB com Dexie. Arrastar e soltar com dnd-kit. A Fase 6 traz o Tauri. Detalhes e justificativas em [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Licença
 

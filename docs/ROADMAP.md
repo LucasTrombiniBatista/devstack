@@ -48,14 +48,18 @@ Regras de desenho que valem para todas as fases:
 
 **Pronto quando:** dados persistem entre recarregamentos; testes de CRUD e ordenação passam.
 
-### Fase 2: Kanban (seção 3.1)
+### Fase 2: Kanban (seção 3.1) ✅
 
-- [ ] Colunas: renderizar, renomear, criar, reordenar, limite de WIP com aviso
-- [ ] Cards: criar, editar, arrastar entre colunas e dentro da coluna (mouse, toque, teclado)
-- [ ] Detalhe do card: título, link, tipo, plataforma, tags, prioridade, estimativa, data alvo, progresso, notas em Markdown, checklist, links extras, **Abrir conteúdo**
-- [ ] Trilhas com cor e agrupamento do quadro por trilha (swimlanes)
-- [ ] Filtros (tag, tipo, plataforma, prioridade, trilha) e busca global
-- [ ] Mover para "Feito" grava `concluidoEm`
+- [x] Colunas: renderizar, renomear, criar, reordenar, limite de WIP com aviso
+- [x] Cards: criar, editar, arrastar entre colunas e dentro da coluna (mouse, toque, teclado)
+- [x] Detalhe do card: título, link, tipo, plataforma, tags, prioridade, estimativa, data alvo, progresso, notas em Markdown, checklist, links extras, **Abrir conteúdo**
+- [x] Trilhas com cor e agrupamento do quadro por trilha (swimlanes)
+- [x] Filtros (tag, tipo, plataforma, prioridade, trilha) e busca global
+- [x] Mover para "Feito" grava `concluidoEm`
+
+- [x] Tema "Carmim" (claro e escuro) e fontes Nunito e JetBrains Mono
+
+Cada célula mostra até 50 cards e um "Mostrar mais"; é isso que mantém o arrastar leve com backlog grande. As colunas são reordenadas pelo menu da coluna, não por arrasto.
 
 **Pronto quando:** criar, editar e arrastar funciona só com teclado; 1.000 cards arrastam sem engasgo.
 

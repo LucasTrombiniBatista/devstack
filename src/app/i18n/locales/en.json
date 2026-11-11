@@ -1,7 +1,14 @@
 {
   "app": {
     "tagline": "A study Kanban for people who code",
-    "mainNav": "Main navigation"
+    "mainNav": "Main navigation",
+    "local": "Local · on this device",
+    "search": "Search cards"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete"
   },
   "nav": {
     "board": "Board",
@@ -10,9 +17,101 @@
   },
   "board": {
     "title": "Board",
-    "empty": "Cards arrive in Phase 2. The columns below already come from the local database.",
-    "wip": "WIP {{count}}",
-    "noCards": "No cards"
+    "week": "Week {{week}} · {{range}}",
+    "newCard": "New card",
+    "addCard": "New card",
+    "addCardPlaceholder": "Title or link, then Enter",
+    "addColumn": "New column",
+    "showMore": "Show more ({{count}})",
+    "allTracks": "All tracks",
+    "groupByTrack": "Group by track",
+    "noTrack": "No track",
+    "filters": "Filters",
+    "filtered": "Showing only cards that match the search and filters.",
+    "clearFilters": "Clear filters",
+    "wip": "WIP {{count}}/{{limit}}",
+    "wipOver": "Over the work-in-progress limit"
+  },
+  "column": {
+    "menu": "Options for column {{name}}",
+    "edit": "Edit column",
+    "create": "New column",
+    "name": "Name",
+    "wipLimit": "WIP limit",
+    "wipHint": "The WIP limit warns you when too many cards are in progress. Leave it empty for no limit.",
+    "moveLeft": "Move left",
+    "moveRight": "Move right",
+    "delete": "Delete column",
+    "deleteHint": "Empty the column to delete it"
+  },
+  "card": {
+    "untitled": "New card",
+    "details": "Card details. Each field saves when you leave it.",
+    "title": "Title",
+    "link": "Content link",
+    "open": "Open content",
+    "column": "Column",
+    "track": "Track",
+    "type": "Type",
+    "priority": "Priority",
+    "platform": "Platform",
+    "estimate": "Estimate (hours)",
+    "dueDate": "Target date",
+    "tags": "Tags",
+    "progress": "Progress",
+    "checklist": "Checklist",
+    "addItem": "Add an item and press Enter",
+    "itemText": "Item text",
+    "removeItem": "Remove {{name}}",
+    "notes": "Notes",
+    "write": "Write",
+    "preview": "Preview",
+    "notesPlaceholder": "Notes in Markdown. Code blocks with ```.",
+    "emptyPreview": "Nothing to preview yet.",
+    "extraLinks": "Extra links",
+    "linkTitle": "Link title",
+    "linkUrl": "Link address",
+    "addLink": "Add",
+    "delete": "Delete card",
+    "deleteConfirm": "Delete this card?"
+  },
+  "tipo": {
+    "video": "Video",
+    "curso": "Course",
+    "documentacao": "Documentation",
+    "projeto": "Project",
+    "leitura": "Reading",
+    "exercicio": "Exercise"
+  },
+  "prioridade": {
+    "alta": "High",
+    "media": "Medium",
+    "baixa": "Low"
+  },
+  "tracks": {
+    "title": "Tracks",
+    "empty": "No tracks yet.",
+    "add": "New track",
+    "edit": "Edit track",
+    "editNamed": "Edit track {{name}}",
+    "hint": "Tracks group cards that belong to the same study path.",
+    "name": "Name",
+    "color": "Color",
+    "goalDate": "Target completion",
+    "colors": {
+      "carmim": "Carmine",
+      "tinta": "Ink",
+      "rosa": "Pink",
+      "cinza": "Gray",
+      "coral": "Coral"
+    }
+  },
+  "dnd": {
+    "instructions": "Space picks up the card, arrows move it, Space drops it and Esc cancels. Enter opens the card.",
+    "picked": "Card {{card}} picked up.",
+    "over": "Card {{card}} is over column {{column}}.",
+    "dropped": "Card {{card}} dropped in column {{column}}.",
+    "cancelled": "Moving card {{card}} was cancelled."
   },
   "week": {
     "title": "Week",

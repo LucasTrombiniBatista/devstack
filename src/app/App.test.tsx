@@ -16,7 +16,7 @@ describe('casca do app', () => {
     for (const name of ['Backlog', 'Esta semana', 'Hoje', 'Estudando', 'Revisão', 'Feito']) {
       expect(screen.getByRole('heading', { name })).toBeInTheDocument()
     }
-    expect(screen.getByText('WIP 2')).toBeInTheDocument()
+    expect(screen.getByText('WIP 0/2')).toBeInTheDocument()
     for (const name of ['Quadro', 'Semana', 'Configurações']) {
       expect(screen.getByRole('link', { name })).toBeInTheDocument()
     }

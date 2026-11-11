@@ -1,16 +1,37 @@
 import { db } from '@/data/db'
-import type { ChecklistItem, Column, Data } from '@/data/types'
+import type { ChecklistItem, Column, Data, Track } from '@/data/types'
 import { byOrdem, ordemAtEnd, ordemAtIndex } from '@/lib/order'
 import { bump, createRepo } from './base'
 
 export { cardsRepo, type NewCard } from './cards'
 
 export const boardsRepo = createRepo(db.boards)
-export const tracksRepo = createRepo(db.tracks)
 export const sessionsRepo = createRepo(db.sessions)
 export const planBlocksRepo = createRepo(db.planBlocks)
 export const dailyGoalsRepo = createRepo(db.dailyGoals)
 export const settingsRepo = createRepo(db.settings)
+
+const tracksBase = createRepo(db.tracks)
+
+export const tracksRepo = {
+  ...tracksBase,
+
+  /** Trilhas na ordem em que foram criadas. */
+  async listSorted(): Promise<Track[]> {
+    return (await tracksBase.list()).sort((a, b) => (a.criadoEm < b.criadoEm ? -1 : 1))
+  },
+
+  /** Apaga a trilha e deixa os cards dela sem trilha. */
+  async removeAndDetach(id: string): Promise<void> {
+    await db.transaction('rw', db.tracks, db.cards, async () => {
+      const cards = (await db.cards.where('trackId').equals(id).toArray()).filter(
+        (card) => card.removidoEm === null,
+      )
+      await db.cards.bulkPut(cards.map((card) => bump(card, { trackId: null })))
+      await tracksBase.remove(id)
+    })
+  },
+}
 
 const columnsBase = createRepo(db.columns)
 

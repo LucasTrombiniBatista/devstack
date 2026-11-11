@@ -1,7 +1,14 @@
 {
   "app": {
     "tagline": "Kanban de estudos para quem programa",
-    "mainNav": "Navegação principal"
+    "mainNav": "Navegação principal",
+    "local": "Local · neste dispositivo",
+    "search": "Buscar cards"
+  },
+  "common": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir"
   },
   "nav": {
     "board": "Quadro",
@@ -10,9 +17,101 @@
   },
   "board": {
     "title": "Quadro",
-    "empty": "Os cards chegam na Fase 2. As colunas abaixo já vêm do banco local.",
-    "wip": "WIP {{count}}",
-    "noCards": "Sem cards"
+    "week": "Semana {{week}} · {{range}}",
+    "newCard": "Novo card",
+    "addCard": "Novo card",
+    "addCardPlaceholder": "Título ou link, depois Enter",
+    "addColumn": "Nova coluna",
+    "showMore": "Mostrar mais ({{count}})",
+    "allTracks": "Todas as trilhas",
+    "groupByTrack": "Agrupar por trilha",
+    "noTrack": "Sem trilha",
+    "filters": "Filtros",
+    "filtered": "Mostrando só os cards que passam na busca e nos filtros.",
+    "clearFilters": "Limpar filtros",
+    "wip": "WIP {{count}}/{{limit}}",
+    "wipOver": "Acima do limite de cards em andamento"
+  },
+  "column": {
+    "menu": "Opções da coluna {{name}}",
+    "edit": "Editar coluna",
+    "create": "Nova coluna",
+    "name": "Nome",
+    "wipLimit": "Limite de WIP",
+    "wipHint": "O limite de WIP avisa quando há cards demais em andamento. Deixe vazio para não limitar.",
+    "moveLeft": "Mover para a esquerda",
+    "moveRight": "Mover para a direita",
+    "delete": "Excluir coluna",
+    "deleteHint": "Esvazie a coluna para excluir"
+  },
+  "card": {
+    "untitled": "Novo card",
+    "details": "Detalhes do card. Cada campo é salvo ao sair dele.",
+    "title": "Título",
+    "link": "Link do conteúdo",
+    "open": "Abrir conteúdo",
+    "column": "Coluna",
+    "track": "Trilha",
+    "type": "Tipo",
+    "priority": "Prioridade",
+    "platform": "Plataforma",
+    "estimate": "Estimativa (horas)",
+    "dueDate": "Data alvo",
+    "tags": "Tags",
+    "progress": "Progresso",
+    "checklist": "Checklist",
+    "addItem": "Adicionar item e Enter",
+    "itemText": "Texto do item",
+    "removeItem": "Remover {{name}}",
+    "notes": "Notas",
+    "write": "Escrever",
+    "preview": "Visualizar",
+    "notesPlaceholder": "Anotações em Markdown. Blocos de código com ```.",
+    "emptyPreview": "Nada para visualizar ainda.",
+    "extraLinks": "Links adicionais",
+    "linkTitle": "Título do link",
+    "linkUrl": "Endereço do link",
+    "addLink": "Adicionar",
+    "delete": "Excluir card",
+    "deleteConfirm": "Excluir este card?"
+  },
+  "tipo": {
+    "video": "Vídeo",
+    "curso": "Curso",
+    "documentacao": "Documentação",
+    "projeto": "Projeto",
+    "leitura": "Leitura",
+    "exercicio": "Exercício"
+  },
+  "prioridade": {
+    "alta": "Alta",
+    "media": "Média",
+    "baixa": "Baixa"
+  },
+  "tracks": {
+    "title": "Trilhas",
+    "empty": "Nenhuma trilha ainda.",
+    "add": "Nova trilha",
+    "edit": "Editar trilha",
+    "editNamed": "Editar trilha {{name}}",
+    "hint": "Trilhas agrupam cards de um mesmo roteiro de estudo.",
+    "name": "Nome",
+    "color": "Cor",
+    "goalDate": "Meta de conclusão",
+    "colors": {
+      "carmim": "Carmim",
+      "tinta": "Tinta",
+      "rosa": "Rosa",
+      "cinza": "Cinza",
+      "coral": "Coral"
+    }
+  },
+  "dnd": {
+    "instructions": "Espaço pega o card, setas movem, Espaço solta e Esc cancela. Enter abre o card.",
+    "picked": "Card {{card}} em movimento.",
+    "over": "Card {{card}} sobre a coluna {{column}}.",
+    "dropped": "Card {{card}} solto na coluna {{column}}.",
+    "cancelled": "Movimento do card {{card}} cancelado."
   },
   "week": {
     "title": "Semana",
