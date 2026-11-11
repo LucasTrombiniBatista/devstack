@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Page } from '@/app/layout/Page'
 import { LANGUAGES, useSettings } from '@/app/settings-store'
 import { SegmentedControl } from '@/components/SegmentedControl'
+import { DataSettings } from '@/features/importer/DataSettings'
 
 export function SettingsPage() {
   const { t } = useTranslation()
@@ -41,6 +42,7 @@ export function SettingsPage() {
           />
         </div>
       </section>
+      <DataSettings />
     </Page>
   )
 }

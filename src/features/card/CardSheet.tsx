@@ -128,6 +128,15 @@ function CardForm({ card, columns, tracks, items }: Loaded) {
           </h2>
         </SheetTitle>
         <SheetDescription className="sr-only">{t('card.details')}</SheetDescription>
+        {card.miniaturaUrl && (
+          <img
+            src={card.miniaturaUrl}
+            alt=""
+            loading="lazy"
+            onError={(event) => (event.currentTarget.hidden = true)}
+            className="aspect-video w-full rounded-xl border object-cover"
+          />
+        )}
         <div className="flex items-center gap-2">
           <Input
             {...url}

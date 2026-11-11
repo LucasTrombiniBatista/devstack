@@ -113,6 +113,47 @@
     "dropped": "Card {{card}} dropped in column {{column}}.",
     "cancelled": "Moving card {{card}} was cancelled."
   },
+  "command": {
+    "title": "Command palette",
+    "hint": "Type a title or paste a link to create a card, or look for a card or command.",
+    "placeholder": "New card, paste a link or search…",
+    "empty": "Nothing found.",
+    "create": "Create",
+    "createFromLink": "Create card from {{link}}",
+    "createNamed": "Create card \"{{name}}\"",
+    "cards": "Cards",
+    "actions": "Actions",
+    "goTo": "Go to {{page}}",
+    "export": "Export and back up",
+    "toggleTheme": "Toggle light and dark theme"
+  },
+  "import": {
+    "title": "Import list",
+    "hint": "Paste links or Markdown, or open a file. Each line becomes a card; section headings become tracks.",
+    "openFile": "Open file",
+    "orPaste": "or paste the text below",
+    "text": "Text to import",
+    "empty": "No cards found in the text.",
+    "summary": "{{count}} new cards in {{trilhas}} tracks.",
+    "repeated": "{{count}} already exist and will be skipped.",
+    "items": "{{count}} items",
+    "done": "done",
+    "confirm": "Import {{count}} cards"
+  },
+  "data": {
+    "title": "Data",
+    "export": "Export",
+    "exportHint": "The JSON backup keeps everything. Markdown and CSV take your cards elsewhere.",
+    "backup": "Full backup (JSON)",
+    "import": "Import",
+    "importHint": "Importing a list adds cards. Restoring a backup replaces everything in the app.",
+    "restore": "Restore backup",
+    "restoreTitle": "Restore backup?",
+    "restoreWarning": "Everything in the app right now will be replaced with the contents of {{file}}.",
+    "restoreConfirm": "Replace everything",
+    "restored": "Backup restored.",
+    "invalid": "That file is not a DevStack backup."
+  },
   "week": {
     "title": "Week",
     "empty": "The weekly view arrives in Phase 5."

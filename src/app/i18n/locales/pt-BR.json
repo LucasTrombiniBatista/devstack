@@ -113,6 +113,47 @@
     "dropped": "Card {{card}} solto na coluna {{column}}.",
     "cancelled": "Movimento do card {{card}} cancelado."
   },
+  "command": {
+    "title": "Paleta de comandos",
+    "hint": "Digite um título ou cole um link para criar um card, ou procure um card ou comando.",
+    "placeholder": "Novo card, colar link ou buscar…",
+    "empty": "Nada encontrado.",
+    "create": "Criar",
+    "createFromLink": "Criar card a partir de {{link}}",
+    "createNamed": "Criar card \"{{name}}\"",
+    "cards": "Cards",
+    "actions": "Ações",
+    "goTo": "Ir para {{page}}",
+    "export": "Exportar e fazer backup",
+    "toggleTheme": "Alternar tema claro e escuro"
+  },
+  "import": {
+    "title": "Importar lista",
+    "hint": "Cole links ou Markdown, ou abra um arquivo. Cada linha vira um card; títulos de seção viram trilhas.",
+    "openFile": "Abrir arquivo",
+    "orPaste": "ou cole o texto abaixo",
+    "text": "Texto para importar",
+    "empty": "Nenhum card encontrado no texto.",
+    "summary": "{{count}} cards novos em {{trilhas}} trilhas.",
+    "repeated": "{{count}} já existem e serão ignorados.",
+    "items": "{{count}} itens",
+    "done": "concluído",
+    "confirm": "Importar {{count}} cards"
+  },
+  "data": {
+    "title": "Dados",
+    "export": "Exportar",
+    "exportHint": "O backup em JSON guarda tudo. Markdown e CSV levam os cards para outros lugares.",
+    "backup": "Backup completo (JSON)",
+    "import": "Importar",
+    "importHint": "Importar lista acrescenta cards. Restaurar backup substitui tudo o que há no app.",
+    "restore": "Restaurar backup",
+    "restoreTitle": "Restaurar backup?",
+    "restoreWarning": "Tudo o que está no app agora será substituído pelo conteúdo de {{file}}.",
+    "restoreConfirm": "Substituir tudo",
+    "restored": "Backup restaurado.",
+    "invalid": "Esse arquivo não é um backup do DevStack."
+  },
   "week": {
     "title": "Semana",
     "empty": "A visão semanal chega na Fase 5."

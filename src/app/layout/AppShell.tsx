@@ -7,15 +7,21 @@ import {
   Settings,
   type LucideIcon,
 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router'
 import type { Track } from '@/data/types'
+import { useUi } from '@/app/ui-store'
 import { useBoardView } from '@/features/board/filters'
 import { useBoardData } from '@/features/board/useBoardData'
+import { captureTarget, createCardFromUrl } from '@/features/capture/capture'
+import { CardSheet } from '@/features/card/CardSheet'
+import { CommandPalette } from '@/features/command/CommandPalette'
+import { ImportDialog } from '@/features/importer/ImportDialog'
 import { TrackDialog } from '@/features/tracks/TrackDialog'
 import { TrackDot } from '@/features/tracks/TrackDot'
 import { APP_NAME } from '@/lib/constants'
+import { isUrl } from '@/lib/format'
 import { cn } from '@/lib/utils'
 
 const NAV_ITEMS: { to: string; labelKey: string; icon: LucideIcon }[] = [
@@ -43,6 +49,28 @@ export function AppShell() {
   function goToBoard() {
     if (location.pathname !== '/board') void navigate('/board')
   }
+
+  // Colar fora de um campo de texto: um link vira card no Backlog; várias linhas abrem a importação.
+  useEffect(() => {
+    async function onPaste(event: ClipboardEvent) {
+      const target = event.target as HTMLElement | null
+      if (target?.closest('input, textarea, [contenteditable="true"], [role="dialog"]')) return
+      const text = event.clipboardData?.getData('text/plain').trim() ?? ''
+      const lines = text.split(/\r?\n/).filter((line) => line.trim())
+      if (lines.length > 1) {
+        event.preventDefault()
+        useUi.getState().openImport(text)
+      } else if (isUrl(text)) {
+        event.preventDefault()
+        const where = await captureTarget()
+        if (!where) return
+        await createCardFromUrl(text, where)
+        void navigate('/board')
+      }
+    }
+    window.addEventListener('paste', onPaste)
+    return () => window.removeEventListener('paste', onPaste)
+  }, [navigate])
 
   return (
     <div className="flex h-dvh flex-col bg-background text-foreground md:flex-row">
@@ -77,6 +105,18 @@ export function AppShell() {
             placeholder={t('app.search')}
             className="min-w-0 flex-1 bg-transparent text-[0.8125rem] font-semibold outline-none placeholder:text-muted-foreground"
           />
+          <button
+            type="button"
+            onClick={() => useUi.getState().setPaletteOpen(true)}
+            aria-label={t('command.title')}
+            title={t('command.title')}
+            className={cn(
+              'shrink-0 rounded-md px-1 font-mono text-[0.6875rem] font-medium text-muted-foreground hover:text-foreground',
+              focusRing,
+            )}
+          >
+            Ctrl K
+          </button>
         </label>
 
         <nav aria-label={t('app.mainNav')} className="flex gap-0.5 md:flex-col">
@@ -174,6 +214,9 @@ export function AppShell() {
         <Outlet />
       </main>
 
+      <CardSheet />
+      <CommandPalette />
+      <ImportDialog />
       {editing !== null && (
         <TrackDialog track={editing === 'new' ? null : editing} onClose={() => setEditing(null)} />
       )}

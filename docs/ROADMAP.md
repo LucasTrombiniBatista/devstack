@@ -63,18 +63,25 @@ Cada célula mostra até 50 cards e um "Mostrar mais"; é isso que mantém o arr
 
 **Pronto quando:** criar, editar e arrastar funciona só com teclado; 1.000 cards arrastam sem engasgo.
 
-### Fase 3: Captura, importação e exportação
+### Fase 3: Captura, importação e exportação ✅
 
-- [ ] Colar link cria card (plataforma pelo domínio, `MetadataProvider`, fallback manual)
-- [ ] Paleta `Ctrl/Cmd + K` mínima: novo card, ir para Quadro/Semana/Hoje, buscar card
-- [ ] Parser do formato da seção 13 como função pura, testado contra o próprio `DevStack.md`
+- [x] Colar link cria card (plataforma pelo domínio, `MetadataProvider`, fallback manual)
+- [x] Paleta `Ctrl/Cmd + K` mínima: novo card, ir para Quadro/Semana/Hoje, buscar card
+- [x] Parser do formato da seção 13 como função pura, testado contra o próprio `DevStack.md`
   - linha com link vira card; `[x]` vai para "Feito"; `Xh` vira estimativa; `?` fica sem estimativa
   - título `## N. Fase ...` vira trilha
   - item sem link ou com `(buscar pelo nome)` vira card sem URL com a tag `#buscar`
   - subitens aninhados e blocos "um card com checklist" viram `ChecklistItem`
   - `**Projeto N:**` vira card do tipo projeto
-- [ ] Colar lista com pré-visualização antes de confirmar
-- [ ] Exportar e importar JSON (backup completo) e Markdown; exportar CSV
+- [x] Colar lista com pré-visualização antes de confirmar
+- [x] Exportar e importar JSON (backup completo) e Markdown; exportar CSV
+
+Como ficou:
+
+- Na web, título e miniatura automáticos só para YouTube e Vimeo (oEmbed direto do navegador). Os outros sites bloqueiam esse acesso; o card nasce com um título tirado do endereço e a pessoa ajusta. O desktop (Fase 6) busca qualquer página.
+- Itens sem metadados numa seção (como "Metas gerais") viram um único card com checklist.
+- Importar a mesma lista duas vezes não duplica: vale o link, ou título e trilha quando não há link.
+- O Markdown exportado guarda título, link, plataforma ou tipo, estimativa, tags, checklist e notas. O resto só vai no backup em JSON.
 
 **Pronto quando:** importar a Parte B gera as trilhas e os cards corretos; exportar JSON, limpar o banco e importar devolve o mesmo estado.
 

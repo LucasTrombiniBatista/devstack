@@ -81,6 +81,7 @@ export function BoardToolbar({ data }: { data: BoardData }) {
       columnId: columns[0].id,
       trackId: view.trackId,
       titulo: t('card.untitled'),
+      posicao: 'inicio',
     })
     openCard(card.id)
   }

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CardSheet } from '@/features/card/CardSheet'
 import { formatWeekRange, isoWeek } from '@/lib/format'
 import { BoardToolbar } from './BoardToolbar'
 import { BoardView } from './BoardView'
@@ -44,7 +43,6 @@ export function BoardPage() {
       )}
 
       <BoardView data={data} />
-      <CardSheet />
     </div>
   )
 }

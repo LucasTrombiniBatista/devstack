@@ -59,6 +59,8 @@ test('move cards só com o teclado e mantém tudo depois de recarregar', async (
   await page.keyboard.press('Space')
   await expect.poll(() => titles(column(page, 'Backlog'))).toEqual(['Docker', 'SQLBolt'])
 
+  // A tela muda antes de a gravação terminar; dá tempo de ela chegar ao banco.
+  await page.waitForTimeout(300)
   await page.reload()
   await expect(column(page, 'Esta semana').getByRole('button', { name: 'Pro Git' })).toBeVisible()
   expect(await titles(column(page, 'Backlog'))).toEqual(['Docker', 'SQLBolt'])

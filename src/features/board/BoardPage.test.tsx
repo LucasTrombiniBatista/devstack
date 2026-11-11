@@ -83,7 +83,7 @@ describe('quadro', () => {
     await user.keyboard('Pro Git{Enter}https://sqlbolt.com/{Enter}')
 
     expect(await within(backlog).findByRole('button', { name: 'Pro Git' })).toBeInTheDocument()
-    await within(backlog).findByRole('button', { name: 'https://sqlbolt.com/' })
+    await within(backlog).findByRole('button', { name: 'sqlbolt.com' })
     const cards = await db.cards.toArray()
     expect(cards.find((c) => c.titulo === 'Pro Git')?.url).toBeNull()
     expect(cards.find((c) => c.titulo.includes('sqlbolt'))?.url).toBe('https://sqlbolt.com/')
