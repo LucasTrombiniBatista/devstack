@@ -246,7 +246,7 @@ Os links de cursos Alura e DIO foram conferidos em pesquisa em 10/11/2026. Inscr
 | Segurança | OWASP Top 10, varredura de imagens e dependências | [OWASP Top 10](https://owasp.org/www-project-top-ten/) |
 | Python | Python, FastAPI, Pydantic, pytest | [Python Tutorial](https://docs.python.org/pt-br/3/tutorial/), [FastAPI](https://fastapi.tiangolo.com/pt/), [pytest](https://docs.pytest.org/) |
 | Node.js (opcional) | Node, TypeScript, Express ou NestJS, Jest | [Node.js Learn](https://nodejs.org/pt/learn), [TypeScript](https://www.typescriptlang.org/docs/handbook/intro.html), [NestJS](https://docs.nestjs.com/), [Jest](https://jestjs.io/) |
-| IA e LLMs | Prompting, tool calling, RAG, pgvector, evals | [Documentação da Claude](https://docs.claude.com), [pgvector](https://github.com/pgvector/pgvector) |
+| IA e LLMs | Prompting, tool calling, RAG, pgvector, evals | [pgvector](https://github.com/pgvector/pgvector) |
 | Agentes e multiagente | LangChain e LangGraph, Google ADK, CrewAI, MCP, A2A | [LangChain e LangGraph](https://docs.langchain.com), [Google ADK](https://google.github.io/adk-docs/), [CrewAI](https://docs.crewai.com/), [MCP](https://modelcontextprotocol.io) |
 | Segurança de IA | Prompt injection, guardrails | [OWASP Top 10 para LLMs](https://owasp.org/www-project-top-10-for-large-language-model-applications/) |
 | Arquitetura | Microsserviços, 12-factor, Saga, Outbox, Clean Architecture | [microservices.io](https://microservices.io/patterns/index.html), [12-Factor App](https://12factor.net/pt_br/) |
@@ -439,7 +439,6 @@ Os links de cursos Alura e DIO foram conferidos em pesquisa em 10/11/2026. Inscr
 
 **Gratuito**
 
-- [ ] [Documentação da Claude](https://docs.claude.com) · documentação · ? · #ia
 - [ ] [Model Context Protocol](https://modelcontextprotocol.io) · documentação · ? · #mcp
 - [ ] [LangChain e LangGraph](https://docs.langchain.com) · documentação · ? · #langgraph
 - [ ] [Google ADK](https://google.github.io/adk-docs/) · documentação · ? · #adk
