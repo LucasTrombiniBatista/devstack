@@ -1,0 +1,39 @@
+{
+  "app": {
+    "tagline": "A study Kanban for people who code",
+    "mainNav": "Main navigation"
+  },
+  "nav": {
+    "board": "Board",
+    "week": "Week",
+    "settings": "Settings"
+  },
+  "board": {
+    "title": "Board",
+    "empty": "The Kanban arrives in Phase 2. For now, this is just the app shell."
+  },
+  "week": {
+    "title": "Week",
+    "empty": "The weekly view arrives in Phase 5."
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "theme": {
+      "label": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "density": {
+      "label": "Density",
+      "comfortable": "Comfortable",
+      "compact": "Compact"
+    },
+    "language": {
+      "label": "Language",
+      "pt-BR": "Português (Brasil)",
+      "en": "English"
+    }
+  }
+}

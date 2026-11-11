@@ -1,0 +1,9 @@
+dist
+node_modules
+pnpm-lock.yaml
+DevStack.md
+src/components/ui
+src/index.css
+src-tauri/target
+playwright-report
+test-results

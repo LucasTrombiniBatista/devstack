@@ -1,0 +1,39 @@
+{
+  "app": {
+    "tagline": "Kanban de estudos para quem programa",
+    "mainNav": "Navegação principal"
+  },
+  "nav": {
+    "board": "Quadro",
+    "week": "Semana",
+    "settings": "Configurações"
+  },
+  "board": {
+    "title": "Quadro",
+    "empty": "O Kanban chega na Fase 2. Por enquanto, esta é só a casca do app."
+  },
+  "week": {
+    "title": "Semana",
+    "empty": "A visão semanal chega na Fase 5."
+  },
+  "settings": {
+    "title": "Configurações",
+    "appearance": "Aparência",
+    "theme": {
+      "label": "Tema",
+      "light": "Claro",
+      "dark": "Escuro",
+      "system": "Automático"
+    },
+    "density": {
+      "label": "Densidade",
+      "comfortable": "Confortável",
+      "compact": "Compacta"
+    },
+    "language": {
+      "label": "Idioma",
+      "pt-BR": "Português (Brasil)",
+      "en": "English"
+    }
+  }
+}
