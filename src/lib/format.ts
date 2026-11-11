@@ -51,3 +51,17 @@ export function parseTags(input: string): string[] {
 export function isUrl(text: string): boolean {
   return /^https?:\/\/\S+$/i.test(text.trim())
 }
+
+/** Data local no formato AAAA-MM-DD (o `toISOString` usaria UTC e erraria o dia à noite). */
+export function localDate(date: Date): string {
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
+}
+
+/** Troca o dia de um instante, mantendo a hora local. */
+export function withLocalDate(instant: Date, day: string): Date {
+  const [y, m, d] = day.split('-').map(Number)
+  const next = new Date(instant)
+  next.setFullYear(y, m - 1, d)
+  return next
+}
