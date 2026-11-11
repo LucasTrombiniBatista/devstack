@@ -7,7 +7,7 @@ App web e desktop, local-first, para controlar o que você está estudando. Cada
 - **Especificação e backlog de estudo:** [`DevStack.md`](DevStack.md)
 - **Fases de desenvolvimento e estado atual:** [`docs/ROADMAP.md`](docs/ROADMAP.md)
 
-Estado: Fase 0 (fundação) concluída. Por enquanto existe só a casca do app, com tema, densidade e idioma.
+Estado: Fases 0 (fundação) e 1 (dados locais) concluídas. O app abre o quadro inicial com as colunas padrão, guardado no navegador; os cards chegam na Fase 2.
 
 ## Como rodar
 
@@ -34,7 +34,7 @@ Na primeira vez, o Playwright precisa do navegador: `pnpm exec playwright instal
 
 ## Stack
 
-React, TypeScript, Vite, Tailwind, shadcn/ui, Zustand, React Router e i18next. As próximas fases trazem Dexie (IndexedDB), dnd-kit e Tauri. Detalhes e justificativas em [`docs/ROADMAP.md`](docs/ROADMAP.md).
+React, TypeScript, Vite, Tailwind, shadcn/ui, Zustand, React Router e i18next. Dados locais em IndexedDB com Dexie. As próximas fases trazem dnd-kit e Tauri. Detalhes e justificativas em [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Licença
 

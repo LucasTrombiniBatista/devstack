@@ -39,12 +39,12 @@ Regras de desenho que valem para todas as fases:
 
 **Pronto quando:** `pnpm dev` abre a casca com troca de tema e idioma; CI verde. (O CI só roda depois que o repositório for enviado ao GitHub.)
 
-### Fase 1: Dados locais
+### Fase 1: Dados locais ✅
 
-- [ ] Schema Dexie a partir da seção 5: `Board`, `Column`, `Track`, `Card`, `ChecklistItem`, `Session`, `PlanBlock`, `DailyGoal`, `Settings` (`User` e `Integration` ficam para a V1)
-- [ ] Repositórios tipados com campos de sync e soft delete
-- [ ] Seed: um board com as 6 colunas padrão e WIP 2 em "Estudando"
-- [ ] Testes dos repositórios com `fake-indexeddb`
+- [x] Schema Dexie a partir da seção 5: `Board`, `Column`, `Track`, `Card`, `ChecklistItem`, `Session`, `PlanBlock`, `DailyGoal`, `Settings` (`User` e `Integration` ficam para a V1)
+- [x] Repositórios tipados com campos de sync e soft delete
+- [x] Seed: um board com as 6 colunas padrão e WIP 2 em "Estudando"
+- [x] Testes dos repositórios com `fake-indexeddb`
 
 **Pronto quando:** dados persistem entre recarregamentos; testes de CRUD e ordenação passam.
 

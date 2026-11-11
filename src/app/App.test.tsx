@@ -12,7 +12,11 @@ describe('casca do app', () => {
   it('abre no quadro e mostra a navegação', async () => {
     render(<App />)
 
-    expect(await screen.findByRole('heading', { name: 'Quadro' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Meus estudos' })).toBeInTheDocument()
+    for (const name of ['Backlog', 'Esta semana', 'Hoje', 'Estudando', 'Revisão', 'Feito']) {
+      expect(screen.getByRole('heading', { name })).toBeInTheDocument()
+    }
+    expect(screen.getByText('WIP 2')).toBeInTheDocument()
     for (const name of ['Quadro', 'Semana', 'Configurações']) {
       expect(screen.getByRole('link', { name })).toBeInTheDocument()
     }

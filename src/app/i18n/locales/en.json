@@ -10,7 +10,9 @@
   },
   "board": {
     "title": "Board",
-    "empty": "The Kanban arrives in Phase 2. For now, this is just the app shell."
+    "empty": "Cards arrive in Phase 2. The columns below already come from the local database.",
+    "wip": "WIP {{count}}",
+    "noCards": "No cards"
   },
   "week": {
     "title": "Week",
@@ -34,6 +36,17 @@
       "label": "Language",
       "pt-BR": "Português (Brasil)",
       "en": "English"
+    }
+  },
+  "seed": {
+    "board": "My studies",
+    "columns": {
+      "backlog": "Backlog",
+      "semana": "This week",
+      "hoje": "Today",
+      "estudando": "Studying",
+      "revisao": "Review",
+      "feito": "Done"
     }
   }
 }

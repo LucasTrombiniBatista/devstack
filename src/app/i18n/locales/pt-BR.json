@@ -10,7 +10,9 @@
   },
   "board": {
     "title": "Quadro",
-    "empty": "O Kanban chega na Fase 2. Por enquanto, esta é só a casca do app."
+    "empty": "Os cards chegam na Fase 2. As colunas abaixo já vêm do banco local.",
+    "wip": "WIP {{count}}",
+    "noCards": "Sem cards"
   },
   "week": {
     "title": "Semana",
@@ -34,6 +36,17 @@
       "label": "Idioma",
       "pt-BR": "Português (Brasil)",
       "en": "English"
+    }
+  },
+  "seed": {
+    "board": "Meus estudos",
+    "columns": {
+      "backlog": "Backlog",
+      "semana": "Esta semana",
+      "hoje": "Hoje",
+      "estudando": "Estudando",
+      "revisao": "Revisão",
+      "feito": "Feito"
     }
   }
 }
