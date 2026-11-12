@@ -409,5 +409,27 @@
       "cards_other": "{{count}} cards"
     },
     "openToday": "Ver o dia de hoje"
+  },
+  "updates": {
+    "title": "Atualizações",
+    "current": "Versão instalada: {{version}}",
+    "check": "Procurar atualizações",
+    "checking": "Procurando…",
+    "upToDate": "Você já está na versão mais recente.",
+    "checkError": "Não deu para verificar agora. Confira a internet e tente de novo.",
+    "auto": "Procurar atualizações automaticamente",
+    "available": "Versão {{version}} disponível",
+    "hint": "O app baixa, instala e reinicia. Seus dados continuam no computador.",
+    "install": "Atualizar agora",
+    "installAnyway": "Atualizar mesmo assim",
+    "later": "Depois",
+    "showNotes": "Ver novidades",
+    "hideNotes": "Esconder novidades",
+    "downloading": "Baixando…",
+    "downloadingPct": "Baixando… {{pct}}%",
+    "installing": "Instalando; o app vai reiniciar.",
+    "progress": "Progresso da atualização",
+    "error": "A atualização falhou. Tente de novo mais tarde.",
+    "timerRunning": "O timer está rodando. Atualizar agora reinicia o app; a contagem continua de onde parou."
   }
 }

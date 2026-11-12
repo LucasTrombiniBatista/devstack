@@ -7,6 +7,7 @@ import { seedLabels } from '@/app/seed-labels'
 import { useSettings } from '@/app/settings-store'
 import { ensureSeed } from '@/data/seed'
 import { TimerRunner } from '@/features/timer/TimerRunner'
+import { startUpdateChecks } from '@/features/updates/store'
 
 // O quadro vem no pacote principal; as outras telas carregam quando são abertas.
 const TodayPage = lazy(() =>
@@ -29,6 +30,7 @@ export function App() {
   // Lida uma vez: trocar a tela inicial não deve mudar a tela que já está aberta.
   const [startPage] = useState(() => useSettings.getState().startPage)
   useEffect(() => startApplyingSettings(), [])
+  useEffect(() => startUpdateChecks(), [])
   useEffect(() => {
     void ensureSeed(seedLabels(useSettings.getState().language))
   }, [])

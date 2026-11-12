@@ -4,6 +4,7 @@ import { AppearanceSettings } from '@/app/pages/AppearanceSettings'
 import { DataSettings } from '@/features/importer/DataSettings'
 import { PlanningSettings } from '@/features/planner/PlanningSettings'
 import { TimerSettings } from '@/features/timer/TimerSettings'
+import { UpdateSettings } from '@/features/updates/UpdateSettings'
 
 export function SettingsPage() {
   const { t } = useTranslation()
@@ -14,6 +15,7 @@ export function SettingsPage() {
       <PlanningSettings />
       <TimerSettings />
       <DataSettings />
+      <UpdateSettings />
     </Page>
   )
 }

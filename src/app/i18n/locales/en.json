@@ -409,5 +409,27 @@
       "cards_other": "{{count}} cards"
     },
     "openToday": "See today's plan"
+  },
+  "updates": {
+    "title": "Updates",
+    "current": "Installed version: {{version}}",
+    "check": "Check for updates",
+    "checking": "Checking…",
+    "upToDate": "You're on the latest version.",
+    "checkError": "Couldn't check right now. Check your connection and try again.",
+    "auto": "Check for updates automatically",
+    "available": "Version {{version}} available",
+    "hint": "The app downloads, installs and restarts. Your data stays on this computer.",
+    "install": "Update now",
+    "installAnyway": "Update anyway",
+    "later": "Later",
+    "showNotes": "See what's new",
+    "hideNotes": "Hide what's new",
+    "downloading": "Downloading…",
+    "downloadingPct": "Downloading… {{pct}}%",
+    "installing": "Installing; the app will restart.",
+    "progress": "Update progress",
+    "error": "The update failed. Try again later.",
+    "timerRunning": "The timer is running. Updating now restarts the app; the countdown picks up where it left off."
   }
 }

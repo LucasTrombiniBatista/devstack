@@ -24,6 +24,7 @@ import { ImportDialog } from '@/features/importer/ImportDialog'
 import { MiniTimer } from '@/features/timer/MiniTimer'
 import { TrackDialog } from '@/features/tracks/TrackDialog'
 import { TrackDot } from '@/features/tracks/TrackDot'
+import { UpdateBanner } from '@/features/updates/UpdateBanner'
 import { APP_NAME } from '@/lib/constants'
 import { isUrl } from '@/lib/format'
 import { cn } from '@/lib/utils'
@@ -242,6 +243,7 @@ export function AppShell() {
       <CardSheet />
       <CommandPalette />
       <ImportDialog />
+      <UpdateBanner />
       {editing !== null && (
         <TrackDialog track={editing === 'new' ? null : editing} onClose={() => setEditing(null)} />
       )}

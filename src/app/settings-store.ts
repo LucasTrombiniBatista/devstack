@@ -29,6 +29,10 @@ type SettingsState = {
   toolbarSide: ToolbarSide
   /** Tela que abre ao iniciar o app. */
   startPage: StartPage
+  /** Desktop: procurar versão nova ao abrir e a cada poucas horas. */
+  autoUpdate: boolean
+  /** Versão adiada com "Depois"; não aparece de novo na verificação automática. */
+  skippedVersion: string | null
   setTheme: (theme: Theme) => void
   setDensity: (density: Density) => void
   setLanguage: (language: Language) => void
@@ -40,6 +44,8 @@ type SettingsState = {
   setNavPosition: (navPosition: NavPosition) => void
   setToolbarSide: (toolbarSide: ToolbarSide) => void
   setStartPage: (startPage: StartPage) => void
+  setAutoUpdate: (autoUpdate: boolean) => void
+  setSkippedVersion: (skippedVersion: string | null) => void
   /** Aplica fundo, destaque e tema de uma vez (combinações prontas). */
   setPalette: (palette: { fundo: Fundo; destaque: Destaque; theme: Theme }) => void
   resetAppearance: () => void
@@ -62,6 +68,8 @@ export const defaultSettings = {
   navPosition: 'side' as NavPosition,
   toolbarSide: 'right' as ToolbarSide,
   startPage: 'board' as StartPage,
+  autoUpdate: true,
+  skippedVersion: null as string | null,
 }
 
 /** Preferências de interface. Ficam no localStorage para aplicar antes do primeiro render. */
@@ -80,6 +88,8 @@ export const useSettings = create<SettingsState>()(
       setNavPosition: (navPosition) => set({ navPosition }),
       setToolbarSide: (toolbarSide) => set({ toolbarSide }),
       setStartPage: (startPage) => set({ startPage }),
+      setAutoUpdate: (autoUpdate) => set({ autoUpdate }),
+      setSkippedVersion: (skippedVersion) => set({ skippedVersion }),
       setPalette: (palette) => set(palette),
       resetAppearance: () =>
         set({
