@@ -150,6 +150,38 @@ Como ficou:
 - [ ] Registrar atritos como issues e corrigir em lote
 - [ ] Medir o tempo para adicionar um card (meta: menos de 10 s)
 
+### Fase 8: Aparência personalizável
+
+Tudo fica em Configurações → Aparência e vale para o app inteiro. Nenhuma tela tem controles de cor próprios.
+
+- [ ] Duas paletas independentes:
+  - **Fundo:** fundo da página, superfícies (cards, painéis, menus), bordas e texto. Exemplos de presets: Creme (atual), Branco, Grafite, Preto.
+  - **Destaque:** botões primários, item ativo da navegação, foco do teclado, timer e gráficos. Presets (Carmim, Oceano, Floresta, Âmbar, Violeta, Preto) e seletor livre de cor.
+- [ ] Combinações prontas que juntam as duas (por exemplo "Branco e preto", "Branco e vermelho", "Preto e verde"), além da escolha livre de cada paleta
+- [ ] Regras de contraste aplicadas sozinhas:
+  - o texto sobre o destaque vira claro ou escuro conforme a cor, com contraste mínimo de 4,5:1;
+  - se o destaque escolhido não tiver contraste de 3:1 com o fundo (por exemplo preto sobre fundo preto), o app ajusta a luminosidade e avisa na própria tela de configurações;
+  - tons derivados (hover, mapa de calor, séries dos gráficos) saem da cor de destaque, nunca de valores fixos.
+- [ ] Layout: navegação lateral ou superior; botões de ação à direita ou à esquerda
+- [ ] Prévia ao vivo dentro de Configurações e botão "Restaurar padrão"
+- [ ] Preferências no `settings-store` (versão 2 com migração); `apply-settings` escreve os tokens CSS (`--background`, `--card`, `--primary`, `--ring`, `--chart-*` etc.) no `<html>`
+
+**Pronto quando:** todas as combinações prontas passam no axe (WCAG AA) nas telas principais; trocar uma paleta muda o app inteiro sem recarregar.
+
+### Fase 9: Lobby
+
+Tela inicial com o avanço em estudos e projetos, pintada com as paletas da Fase 8. Protótipo aprovado (dados de exemplo).
+
+- [ ] Resumo: horas de foco na semana (com variação), cards concluídos, sequência de dias, dias com meta batida
+- [ ] Mapa de calor anual de minutos de foco (estilo GitHub)
+- [ ] Barras de foco por dia (14 dias) com a linha da meta diária
+- [ ] Linha de cards concluídos acumulados por semana
+- [ ] Rosca de tempo por trilha
+- [ ] Agregações em `src/features/lobby/stats.ts` (funções puras com testes), leitura por `src/data/repos`
+- [ ] Rota `/lobby` carregada sob demanda e opção de abrir o app nela
+
+**Pronto quando:** os números batem com as sessões e cards reais importados; axe sem violações nos dois temas.
+
 ## Depois do MVP
 
 Detalhar cada versão só ao chegar nela, com o aprendizado do uso real.
@@ -158,7 +190,7 @@ Detalhar cada versão só ao chegar nela, com o aprendizado do uso real.
 
 1. Backend Java 21 + Spring Boot + PostgreSQL + Flyway: auth JWT/OAuth2, API REST, OpenAPI.
 2. Sync local-first: fila de mudanças no cliente, push/pull por `versao`, resolução de conflitos.
-3. Painel de progresso (horas por tecnologia e trilha, mapa de calor, sequência), metas diárias completas, rotina recorrente, revisão semanal, atalhos completos, filtros salvos.
+3. Painel de progresso além do Lobby (horas por tecnologia, comparação entre dispositivos), metas diárias completas, rotina recorrente, revisão semanal, atalhos completos, filtros salvos.
 4. Docker, CI/CD e deploy público com HTTPS.
 
 **Pronto quando:** site com URL pública e pipeline.
