@@ -10,6 +10,7 @@ import type {
 } from '@/data/types'
 import { byOrdem, ordemAtEnd, ordemAtIndex } from '@/lib/order'
 import { bump, createRepo } from './base'
+import { cardsRepo } from './cards'
 
 export { cardsRepo, type NewCard } from './cards'
 
@@ -204,5 +205,18 @@ export const dailyGoalsRepo = {
     const current = await dailyGoalsRepo.forDay(day)
     if (current.id) return goalsBase.update(current.id, { tipoMeta, valorMeta })
     return goalsBase.create({ data: day, tipoMeta, valorMeta })
+  },
+}
+
+/** Tudo que o Lobby precisa para as contas, numa leitura só. */
+export const lobbyRepo = {
+  async snapshot() {
+    const [sessions, cards, tracks, goals] = await Promise.all([
+      sessionsBase.list(),
+      cardsRepo.list(),
+      tracksRepo.list(),
+      goalsBase.list(),
+    ])
+    return { sessions, cards, tracks, goals }
   },
 }
