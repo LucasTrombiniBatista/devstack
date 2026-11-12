@@ -1,6 +1,8 @@
 name: Release
 
 # Gera o instalador do Windows e publica a release quando uma tag vX.Y.Z é enviada.
+# A release vai para o repositório público devstack-releases: o código fica privado,
+# mas o app instalado precisa baixar o latest.json e os pacotes sem login.
 on:
   push:
     tags: ['v*']
@@ -32,11 +34,14 @@ jobs:
           { echo 'body<<NOTAS'; cat release-notes.md; echo 'NOTAS'; } >> "$GITHUB_OUTPUT"
       - uses: tauri-apps/tauri-action@v0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Token com permissão de escrita (Contents) só no devstack-releases.
+          GITHUB_TOKEN: ${{ secrets.RELEASES_TOKEN }}
           # Assinatura da atualização automática; gera o latest.json junto dos instaladores.
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
+          owner: LucasTrombiniBatista
+          repo: devstack-releases
           tagName: ${{ github.ref_name }}
           releaseName: DevStack ${{ github.ref_name }}
           releaseBody: ${{ steps.notes.outputs.body }}

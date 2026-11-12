@@ -222,6 +222,7 @@ Como ficou:
 - A chave privada e a senha ficam em `~/.tauri/` na máquina de quem gerou e nos secrets do GitHub. Perder as duas cópias obriga todo mundo a reinstalar à mão.
 - O aviso aparece no canto inferior direito; as novidades vêm do corpo da release, que sai do `CHANGELOG.md`.
 - No Windows a instalação roda em modo `passive` (barra de progresso, sem perguntas) e o app reinicia sozinho.
+- O repositório do código é privado, e o app não consegue baixar arquivos dele sem login. Por isso as releases saem no repositório público `devstack-releases` (só instaladores, assinaturas e `latest.json`), usando o secret `RELEASES_TOKEN`: um token fine-grained com permissão Contents de escrita apenas nesse repositório. A v0.1.2 ainda aponta para o repositório privado; a atualização automática vale a partir da v0.1.3.
 - A lógica fica em `src/features/updates/store.ts`, com testes que simulam o plugin.
 - Falta o teste de ponta a ponta: precisa de duas releases com o atualizador (a primeira a ter é a próxima depois da v0.1.1).
 
