@@ -225,7 +225,8 @@
     "start": "Start",
     "end": "End",
     "removeBlock": "Remove block",
-    "openCard": "Open card"
+    "openCard": "Open card",
+    "grid": "Week grid"
   },
   "today": {
     "title": "Today",
@@ -303,5 +304,9 @@
       "revisao": "Review",
       "feito": "Done"
     }
+  },
+  "tray": {
+    "open": "Open {{app}}",
+    "quit": "Quit"
   }
 }

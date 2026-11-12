@@ -14,6 +14,7 @@ import {
   type TimerMode,
   type TimerState,
 } from './engine'
+import { openExternal } from '@/platform/runtime'
 import { requestNotifyPermission } from './notify'
 import { timer, useTimer } from './store'
 
@@ -67,7 +68,7 @@ export async function startFocus(
 ): Promise<void> {
   requestNotifyPermission()
   if (card?.url && useSettings.getState().openContent) {
-    window.open(card.url, '_blank', 'noopener,noreferrer')
+    void openExternal(card.url)
   }
   await timer.start(card?.id ?? null, mode)
 }

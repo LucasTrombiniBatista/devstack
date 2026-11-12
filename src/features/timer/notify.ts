@@ -1,11 +1,9 @@
 import { useSettings } from '@/app/settings-store'
-
-const supported = () => typeof Notification !== 'undefined'
+import { requestNotificationPermission, showNotification } from '@/platform/runtime'
 
 /** Pede a permissão de notificação. Chamar a partir de um clique, como o navegador exige. */
 export function requestNotifyPermission(): void {
-  if (!useSettings.getState().notify || !supported()) return
-  if (Notification.permission === 'default') void Notification.requestPermission()
+  if (useSettings.getState().notify) void requestNotificationPermission()
 }
 
 type AudioWindow = Window & { webkitAudioContext?: typeof AudioContext }
@@ -40,12 +38,6 @@ function beep(): void {
 /** Avisa que uma fase terminou, conforme as preferências. */
 export function announce(title: string, body: string): void {
   const { notify, sound } = useSettings.getState()
-  if (notify && supported() && Notification.permission === 'granted') {
-    try {
-      new Notification(title, { body, tag: 'devstack-timer' })
-    } catch {
-      // Alguns navegadores só aceitam notificação por service worker; entra na Fase 6.
-    }
-  }
+  if (notify) void showNotification(title, body)
   if (sound) beep()
 }
