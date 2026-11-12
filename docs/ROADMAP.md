@@ -177,17 +177,26 @@ Como ficou:
 
 **Pronto quando:** todas as combinações prontas passam no axe (WCAG AA) nas telas principais; trocar uma paleta muda o app inteiro sem recarregar.
 
-### Fase 9: Lobby
+### Fase 9: Lobby ✅
 
 Tela inicial com o avanço em estudos e projetos, pintada com as paletas da Fase 8. Protótipo aprovado (dados de exemplo).
 
-- [ ] Resumo: horas de foco na semana (com variação), cards concluídos, sequência de dias, dias com meta batida
-- [ ] Mapa de calor anual de minutos de foco (estilo GitHub)
-- [ ] Barras de foco por dia (14 dias) com a linha da meta diária
-- [ ] Linha de cards concluídos acumulados por semana
-- [ ] Rosca de tempo por trilha
-- [ ] Agregações em `src/features/lobby/stats.ts` (funções puras com testes), leitura por `src/data/repos`
-- [ ] Rota `/lobby` carregada sob demanda e opção de abrir o app nela
+- [x] Resumo: horas de foco na semana (com variação), cards concluídos, sequência de dias, dias com meta batida
+- [x] Mapa de calor anual de minutos de foco (estilo GitHub)
+- [x] Barras de foco por dia (14 dias) com a linha da meta diária
+- [x] Linha de cards concluídos acumulados por semana
+- [x] Rosca de tempo por trilha
+- [x] Agregações em `src/features/lobby/stats.ts` (funções puras com testes), leitura por `src/data/repos`
+- [x] Rota `/lobby` carregada sob demanda e opção de abrir o app nela
+
+Como ficou:
+
+- Os gráficos são SVG próprio, sem biblioteca nova; as cores vêm de `--chart-*`, então seguem a aparência da Fase 8.
+- "Foco em 7 dias" compara os últimos 7 dias com os 7 anteriores. A sequência não quebra enquanto o dia de hoje ainda não teve foco.
+- A meta batida usa a meta que valia em cada dia (horas de foco ou número de cards).
+- A rosca mostra as quatro trilhas com mais tempo e junta o resto em "Outras trilhas"; foco sem card ou sem trilha entra em "Sem trilha".
+- A tela inicial (Quadro ou Lobby) fica em Configurações → Aparência e vale na próxima abertura do app.
+- O teste `e2e/lobby.spec.ts` grava sessões no IndexedDB, confere os números e roda o axe nos dois temas e com "Preto e verde".
 
 **Pronto quando:** os números batem com as sessões e cards reais importados; axe sem violações nos dois temas.
 
