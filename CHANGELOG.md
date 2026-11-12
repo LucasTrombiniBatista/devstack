@@ -4,6 +4,16 @@ Todas as mudanças relevantes do projeto ficam registradas aqui. O formato segue
 [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.1.1] - 2026-11-12
+
+### Adicionado
+
+- Configurações → Aparência com paleta de fundo (Creme, Neutro, Frio) e cor de destaque (cores prontas ou qualquer cor), combinações prontas como "Branco e preto" e "Preto e verde", prévia e botão para restaurar o padrão.
+- Ajuste automático de contraste: o texto dos botões fica claro ou escuro conforme a cor, e um destaque que some no fundo é clareado ou escurecido, com aviso.
+- Navegação lateral ou no topo e botões de ação à direita ou à esquerda.
+- Lobby com resumo da semana, mapa de calor do ano, foco por dia com a meta, tempo por trilha e cards concluídos por semana, nas cores da aparência escolhida.
+- Opção de abrir o app no Lobby.
+
 ## [0.1.0] - 2026-11-12
 
 Primeira versão: o MVP do DevStack, para uso local na web e no Windows.
