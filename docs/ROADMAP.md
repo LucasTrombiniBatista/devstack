@@ -200,6 +200,31 @@ Como ficou:
 
 **Pronto quando:** os números batem com as sessões e cards reais importados; axe sem violações nos dois temas.
 
+### Fase 10: Atualização automática do desktop
+
+Hoje quem tem o app instalado só descobre uma versão nova indo ao GitHub. Com esta fase, o próprio app avisa e se atualiza.
+
+- [ ] Plugin oficial `tauri-plugin-updater` (Rust e `@tauri-apps/plugin-updater`), com permissão nas capabilities
+- [ ] Par de chaves de assinatura da atualização (`pnpm tauri signer generate`):
+  - a chave pública vai no `tauri.conf.json`;
+  - a privada e a senha ficam só nos secrets do GitHub (`TAURI_SIGNING_PRIVATE_KEY` e `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`), nunca no repositório;
+  - guardar uma cópia da chave privada fora do GitHub: sem ela, nenhuma versão futura consegue atualizar quem já instalou.
+- [ ] Workflow `Release` assinando os pacotes e publicando o `latest.json` junto dos instaladores (endpoint: `releases/latest/download/latest.json`)
+- [ ] Ao abrir o app (e a cada poucas horas com ele aberto), verificar se há versão nova; só no desktop, nunca na web
+- [ ] Aviso discreto com a versão nova e as notas do `CHANGELOG.md`, com "Atualizar agora" e "Depois"; "Depois" silencia aquela versão até a próxima
+- [ ] Progresso do download, instalação e reinício; se o timer estiver rodando, esperar ele terminar ou pedir confirmação
+- [ ] Em Configurações: versão atual, botão "Procurar atualizações" e opção de desligar a verificação automática
+- [ ] Textos via i18next (pt-BR e en)
+- [ ] Testar o caminho completo: instalar uma versão, publicar a seguinte e conferir que o app atualiza sem perder dados
+
+Observações:
+
+- A assinatura da atualização é diferente do certificado de assinatura de código; o aviso do SmartScreen na primeira instalação continua.
+- Quem estiver em uma versão anterior a esta fase ainda precisa instalar a nova à mão uma vez.
+- Falha na verificação (sem internet, GitHub fora) não mostra erro; só tenta de novo mais tarde.
+
+**Pronto quando:** um app instalado na versão N recebe o aviso da N+1, atualiza com um clique e abre com os mesmos dados.
+
 ## Depois do MVP
 
 Detalhar cada versão só ao chegar nela, com o aprendizado do uso real.
