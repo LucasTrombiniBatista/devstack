@@ -4,6 +4,17 @@ Todas as mudanças relevantes do projeto ficam registradas aqui. O formato segue
 [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.1.2] - 2026-11-12
+
+### Adicionado
+
+- Atualização automática do app desktop: ao abrir e a cada 6 horas o app procura uma versão nova e mostra um aviso com as novidades, "Atualizar agora" e "Depois". Ele baixa, instala e reinicia sozinho, e pede confirmação se o timer estiver rodando.
+- Configurações → Atualizações com a versão instalada, o botão "Procurar atualizações" e a opção de desligar a verificação automática.
+
+### Observação
+
+- Esta é a primeira versão com atualização automática. Quem está na 0.1.0 ou na 0.1.1 precisa instalar esta à mão uma vez; as próximas chegam pelo próprio app.
+
 ## [0.1.1] - 2026-11-12
 
 ### Adicionado

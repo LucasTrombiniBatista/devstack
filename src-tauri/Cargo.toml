@@ -1,6 +1,6 @@
 [package]
 name = "devstack"
-version = "0.1.1"
+version = "0.1.2"
 description = "Kanban de estudos local-first"
 authors = ["Lucas Trombini B"]
 license = "MIT"
