@@ -11,6 +11,7 @@
     "delete": "Delete"
   },
   "nav": {
+    "lobby": "Lobby",
     "board": "Board",
     "today": "Today",
     "week": "Week",
@@ -338,7 +339,12 @@
       "text": "Regular text",
       "muted": "and secondary text"
     },
-    "resetAppearance": "Restore defaults"
+    "resetAppearance": "Restore defaults",
+    "startPage": {
+      "label": "Start screen",
+      "lobby": "Lobby",
+      "board": "Board"
+    }
   },
   "seed": {
     "board": "My studies",
@@ -354,5 +360,54 @@
   "tray": {
     "open": "Open {{app}}",
     "quit": "Quit"
+  },
+  "lobby": {
+    "title": "Lobby",
+    "subtitle": "Your progress in studies and projects",
+    "today": "today",
+    "otherTracks": "Other tracks",
+    "empty": "No focus or finished cards yet. Run the timer on a card and the charts will start showing up here.",
+    "tiles": {
+      "focus": "Focus in 7 days",
+      "focusChange": "{{change}} vs. the previous 7 days",
+      "focusNoPrev": "no focus in the previous 7 days",
+      "done": "Finished cards",
+      "doneWeek_one": "+{{count}} this week",
+      "doneWeek_other": "+{{count}} this week",
+      "streak": "Current streak",
+      "days_one": "{{count}} day",
+      "days_other": "{{count}} days",
+      "streakHint": "days in a row with focus",
+      "goal": "Daily goal",
+      "goalHint": "days with the goal met last month"
+    },
+    "heat": {
+      "title": "Focus over the last year",
+      "hint": "Each square is a day; the stronger the color, the more focus time.",
+      "mon": "Mon",
+      "wed": "Wed",
+      "fri": "Fri",
+      "less": "less",
+      "more": "more"
+    },
+    "bars": {
+      "title": "Focus per day",
+      "hint": "Last 14 days, in minutes.",
+      "hintGoal": "Last 14 days, in minutes. The dashed line is the daily goal ({{goal}})."
+    },
+    "tracks": {
+      "title": "Time per track",
+      "hint": "Last 30 days",
+      "empty": "No focus in the last 30 days."
+    },
+    "line": {
+      "title": "Finished cards",
+      "hint": "Running total at the end of each of the last 12 weeks.",
+      "week": "W{{n}}",
+      "thisWeek": "this wk.",
+      "cards_one": "{{count}} card",
+      "cards_other": "{{count}} cards"
+    },
+    "openToday": "See today's plan"
   }
 }

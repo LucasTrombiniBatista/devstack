@@ -11,6 +11,7 @@
     "delete": "Excluir"
   },
   "nav": {
+    "lobby": "Lobby",
     "board": "Quadro",
     "today": "Hoje",
     "week": "Semana",
@@ -338,7 +339,12 @@
       "text": "Texto comum",
       "muted": "e texto secundário"
     },
-    "resetAppearance": "Restaurar padrão"
+    "resetAppearance": "Restaurar padrão",
+    "startPage": {
+      "label": "Tela inicial",
+      "lobby": "Lobby",
+      "board": "Quadro"
+    }
   },
   "seed": {
     "board": "Meus estudos",
@@ -354,5 +360,54 @@
   "tray": {
     "open": "Abrir {{app}}",
     "quit": "Sair"
+  },
+  "lobby": {
+    "title": "Lobby",
+    "subtitle": "Seu avanço em estudos e projetos",
+    "today": "hoje",
+    "otherTracks": "Outras trilhas",
+    "empty": "Ainda não há foco nem cards concluídos. Use o timer em um card e os gráficos começam a aparecer aqui.",
+    "tiles": {
+      "focus": "Foco em 7 dias",
+      "focusChange": "{{change}} sobre os 7 dias anteriores",
+      "focusNoPrev": "sem foco nos 7 dias anteriores",
+      "done": "Cards concluídos",
+      "doneWeek_one": "+{{count}} nesta semana",
+      "doneWeek_other": "+{{count}} nesta semana",
+      "streak": "Sequência atual",
+      "days_one": "{{count}} dia",
+      "days_other": "{{count}} dias",
+      "streakHint": "dias seguidos com foco",
+      "goal": "Meta diária",
+      "goalHint": "dias com a meta batida no último mês"
+    },
+    "heat": {
+      "title": "Foco no último ano",
+      "hint": "Cada quadrado é um dia; quanto mais forte a cor, mais tempo de foco.",
+      "mon": "seg",
+      "wed": "qua",
+      "fri": "sex",
+      "less": "menos",
+      "more": "mais"
+    },
+    "bars": {
+      "title": "Foco por dia",
+      "hint": "Últimos 14 dias, em minutos.",
+      "hintGoal": "Últimos 14 dias, em minutos. A linha tracejada é a meta diária ({{goal}})."
+    },
+    "tracks": {
+      "title": "Tempo por trilha",
+      "hint": "Últimos 30 dias",
+      "empty": "Sem foco nos últimos 30 dias."
+    },
+    "line": {
+      "title": "Cards concluídos",
+      "hint": "Total acumulado ao fim de cada uma das últimas 12 semanas.",
+      "week": "S{{n}}",
+      "thisWeek": "esta sem.",
+      "cards_one": "{{count}} card",
+      "cards_other": "{{count}} cards"
+    },
+    "openToday": "Ver o dia de hoje"
   }
 }

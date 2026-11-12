@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { HashRouter, Navigate, Route, Routes } from 'react-router'
 import { startApplyingSettings } from '@/app/apply-settings'
 import { AppShell } from '@/app/layout/AppShell'
@@ -18,11 +18,16 @@ const WeekPage = lazy(() =>
 const SettingsPage = lazy(() =>
   import('@/app/pages/SettingsPage').then((m) => ({ default: m.SettingsPage })),
 )
+const LobbyPage = lazy(() =>
+  import('@/features/lobby/LobbyPage').then((m) => ({ default: m.LobbyPage })),
+)
 const FocusPage = lazy(() =>
   import('@/features/timer/FocusPage').then((m) => ({ default: m.FocusPage })),
 )
 
 export function App() {
+  // Lida uma vez: trocar a tela inicial não deve mudar a tela que já está aberta.
+  const [startPage] = useState(() => useSettings.getState().startPage)
   useEffect(() => startApplyingSettings(), [])
   useEffect(() => {
     void ensureSeed(seedLabels(useSettings.getState().language))
@@ -35,7 +40,8 @@ export function App() {
       <Suspense fallback={null}>
         <Routes>
           <Route element={<AppShell />}>
-            <Route index element={<Navigate to="/board" replace />} />
+            <Route index element={<Navigate to={`/${startPage}`} replace />} />
+            <Route path="lobby" element={<LobbyPage />} />
             <Route path="board" element={<BoardPage />} />
             <Route path="today" element={<TodayPage />} />
             <Route path="week" element={<WeekPage />} />

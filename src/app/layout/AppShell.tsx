@@ -1,6 +1,7 @@
 import {
   CalendarDays,
   Columns3,
+  LayoutDashboard,
   Pencil,
   Plus,
   Search,
@@ -28,6 +29,7 @@ import { isUrl } from '@/lib/format'
 import { cn } from '@/lib/utils'
 
 const NAV_ITEMS: { to: string; labelKey: string; icon: LucideIcon }[] = [
+  { to: '/lobby', labelKey: 'nav.lobby', icon: LayoutDashboard },
   { to: '/board', labelKey: 'nav.board', icon: Columns3 },
   { to: '/today', labelKey: 'nav.today', icon: Sun },
   { to: '/week', labelKey: 'nav.week', icon: CalendarDays },

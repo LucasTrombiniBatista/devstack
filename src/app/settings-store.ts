@@ -7,6 +7,7 @@ export type Density = 'comfortable' | 'compact'
 export type Language = 'pt-BR' | 'en'
 export type NavPosition = 'side' | 'top'
 export type ToolbarSide = 'right' | 'left'
+export type StartPage = 'board' | 'lobby'
 
 export const LANGUAGES: Language[] = ['pt-BR', 'en']
 
@@ -26,6 +27,8 @@ type SettingsState = {
   destaque: Destaque
   navPosition: NavPosition
   toolbarSide: ToolbarSide
+  /** Tela que abre ao iniciar o app. */
+  startPage: StartPage
   setTheme: (theme: Theme) => void
   setDensity: (density: Density) => void
   setLanguage: (language: Language) => void
@@ -36,6 +39,7 @@ type SettingsState = {
   setDestaque: (destaque: Destaque) => void
   setNavPosition: (navPosition: NavPosition) => void
   setToolbarSide: (toolbarSide: ToolbarSide) => void
+  setStartPage: (startPage: StartPage) => void
   /** Aplica fundo, destaque e tema de uma vez (combinações prontas). */
   setPalette: (palette: { fundo: Fundo; destaque: Destaque; theme: Theme }) => void
   resetAppearance: () => void
@@ -57,6 +61,7 @@ export const defaultSettings = {
   destaque: 'padrao' as Destaque,
   navPosition: 'side' as NavPosition,
   toolbarSide: 'right' as ToolbarSide,
+  startPage: 'board' as StartPage,
 }
 
 /** Preferências de interface. Ficam no localStorage para aplicar antes do primeiro render. */
@@ -74,6 +79,7 @@ export const useSettings = create<SettingsState>()(
       setDestaque: (destaque) => set({ destaque }),
       setNavPosition: (navPosition) => set({ navPosition }),
       setToolbarSide: (toolbarSide) => set({ toolbarSide }),
+      setStartPage: (startPage) => set({ startPage }),
       setPalette: (palette) => set(palette),
       resetAppearance: () =>
         set({

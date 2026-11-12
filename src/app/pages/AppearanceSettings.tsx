@@ -204,6 +204,15 @@ export function AppearanceSettings() {
           ]}
         />
         <SegmentedControl
+          label={t('settings.startPage.label')}
+          value={s.startPage}
+          onChange={s.setStartPage}
+          options={[
+            { value: 'board', label: t('settings.startPage.board') },
+            { value: 'lobby', label: t('settings.startPage.lobby') },
+          ]}
+        />
+        <SegmentedControl
           label={t('settings.toolbar.label')}
           value={s.toolbarSide}
           onChange={s.setToolbarSide}
