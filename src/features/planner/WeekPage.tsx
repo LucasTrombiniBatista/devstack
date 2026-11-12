@@ -342,7 +342,7 @@ export function WeekPage() {
 
   return (
     <div className="flex flex-col gap-5 p-6">
-      <header className="flex flex-wrap items-end gap-4">
+      <header className="page-header flex flex-wrap items-end gap-4">
         <div className="flex min-w-0 flex-1 flex-col gap-1">
           <p className="text-xs font-bold text-muted-foreground">
             {t('board.week', {

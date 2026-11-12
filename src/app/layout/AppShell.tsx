@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router'
 import type { Track } from '@/data/types'
+import { useSettings } from '@/app/settings-store'
 import { useUi } from '@/app/ui-store'
 import { useBoardView } from '@/features/board/filters'
 import { useBoardData } from '@/features/board/useBoardData'
@@ -42,6 +43,8 @@ export function AppShell() {
   const data = useBoardData()
   const view = useBoardView()
   const [editing, setEditing] = useState<Track | 'new' | null>(null)
+  // Navegação no topo: a barra fica horizontal também em telas grandes e as trilhas saem dela.
+  const top = useSettings((state) => state.navPosition === 'top')
 
   const boardName = data?.board.nome ?? APP_NAME
   const countByTrack = new Map<string, number>()
@@ -76,8 +79,15 @@ export function AppShell() {
   }, [navigate])
 
   return (
-    <div className="flex h-dvh flex-col bg-background text-foreground md:flex-row">
-      <aside className="flex shrink-0 gap-2 border-b border-sidebar-border bg-sidebar p-2 text-sidebar-foreground md:w-63 md:flex-col md:gap-5 md:border-r md:border-b-0 md:px-3 md:py-4">
+    <div className={cn('flex h-dvh flex-col bg-background text-foreground', !top && 'md:flex-row')}>
+      <aside
+        className={cn(
+          'flex shrink-0 gap-2 border-b border-sidebar-border bg-sidebar p-2 text-sidebar-foreground',
+          top
+            ? 'items-center md:gap-4 md:px-4'
+            : 'md:w-63 md:flex-col md:gap-5 md:border-r md:border-b-0 md:px-3 md:py-4',
+        )}
+      >
         <div className="hidden items-center gap-2.5 px-2 py-1 md:flex">
           <span
             aria-hidden
@@ -95,7 +105,12 @@ export function AppShell() {
           </div>
         </div>
 
-        <label className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-full bg-(--sidebar-well) px-3 has-focus-visible:ring-2 has-focus-visible:ring-sidebar-ring md:flex-none">
+        <label
+          className={cn(
+            'flex h-9 min-w-0 flex-1 items-center gap-2 rounded-full bg-(--sidebar-well) px-3 has-focus-visible:ring-2 has-focus-visible:ring-sidebar-ring',
+            top ? 'md:max-w-72' : 'md:flex-none',
+          )}
+        >
           <Search aria-hidden className="size-3.5 shrink-0 text-muted-foreground" />
           <input
             type="search"
@@ -124,7 +139,7 @@ export function AppShell() {
 
         <MiniTimer />
 
-        <nav aria-label={t('app.mainNav')} className="flex gap-0.5 md:flex-col">
+        <nav aria-label={t('app.mainNav')} className={cn('flex gap-0.5', !top && 'md:flex-col')}>
           {NAV_ITEMS.map(({ to, labelKey, icon: Icon }) => (
             <NavLink
               key={to}
@@ -151,7 +166,10 @@ export function AppShell() {
           ))}
         </nav>
 
-        <section aria-labelledby="sidebar-tracks" className="hidden flex-col gap-0.5 md:flex">
+        <section
+          aria-labelledby="sidebar-tracks"
+          className={cn('hidden flex-col gap-0.5', !top && 'md:flex')}
+        >
           <div className="flex items-center px-3 pb-1.5">
             <h2
               id="sidebar-tracks"

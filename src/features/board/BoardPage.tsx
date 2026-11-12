@@ -16,7 +16,7 @@ export function BoardPage() {
 
   return (
     <div className="flex h-full flex-col gap-5.5 px-4 pt-5 md:px-8 md:pt-7">
-      <header className="flex shrink-0 flex-wrap items-end justify-between gap-4">
+      <header className="page-header flex shrink-0 flex-wrap items-end justify-between gap-4">
         <div className="flex flex-col gap-1">
           <p className="text-[0.8125rem] font-bold text-muted-foreground">
             {t('board.week', {

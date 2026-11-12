@@ -196,6 +196,11 @@
     }
 }
 
+/* Botões de ação à esquerda: o cabeçalho das telas inverte a ordem. */
+html[data-toolbar='left'] .page-header {
+  flex-direction: row-reverse;
+}
+
 /* Densidade compacta: tudo que usa rem encolhe junto. */
 html[data-density='compact'] {
     font-size: 14px;
