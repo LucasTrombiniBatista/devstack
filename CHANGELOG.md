@@ -4,6 +4,13 @@ Todas as mudanças relevantes do projeto ficam registradas aqui. O formato segue
 [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.1.3] - 2026-11-12
+
+### Alterado
+
+- O DevStack agora é open source (licença MIT), com código e releases no mesmo repositório público.
+- Versão para testar a atualização automática: quem está na 0.1.2 recebe o aviso desta versão dentro do app.
+
 ## [0.1.2] - 2026-11-12
 
 ### Adicionado
