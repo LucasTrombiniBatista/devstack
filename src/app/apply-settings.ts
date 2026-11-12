@@ -1,13 +1,21 @@
+import { APPEARANCE_TOKENS, resolveAppearance, type Destaque, type Fundo } from '@/app/appearance'
 import i18n from '@/app/i18n'
 import { useSettings, type Density, type Language, type Theme } from '@/app/settings-store'
 
 const darkQuery = () => window.matchMedia?.('(prefers-color-scheme: dark)')
 
-function applyTheme(theme: Theme) {
-  const dark = theme === 'dark' || (theme === 'system' && Boolean(darkQuery()?.matches))
+export function isDark(theme: Theme): boolean {
+  return theme === 'dark' || (theme === 'system' && Boolean(darkQuery()?.matches))
+}
+
+function applyTheme(theme: Theme, fundo: Fundo, destaque: Destaque) {
+  const dark = isDark(theme)
   const root = document.documentElement
   root.classList.toggle('dark', dark)
   root.style.colorScheme = dark ? 'dark' : 'light'
+  const { tokens } = resolveAppearance(fundo, destaque, dark)
+  for (const name of APPEARANCE_TOKENS) root.style.removeProperty(name)
+  for (const [name, value] of Object.entries(tokens)) root.style.setProperty(name, value)
 }
 
 function applyDensity(density: Density) {
@@ -20,8 +28,11 @@ function applyLanguage(language: Language) {
 }
 
 function applyAll() {
-  const { theme, density, language } = useSettings.getState()
-  applyTheme(theme)
+  const { theme, density, language, fundo, destaque, navPosition, toolbarSide } =
+    useSettings.getState()
+  applyTheme(theme, fundo, destaque)
+  document.documentElement.dataset.nav = navPosition
+  document.documentElement.dataset.toolbar = toolbarSide
   applyDensity(density)
   applyLanguage(language)
 }
