@@ -292,7 +292,53 @@
       "title": "Planning",
       "capacity": "Hours available per week",
       "capacityHint": "The weekly view warns when the plan goes past this."
-    }
+    },
+    "combos": {
+      "label": "Ready-made combinations",
+      "padrao": "Default",
+      "brancoPreto": "White and black",
+      "brancoVermelho": "White and red",
+      "pretoVerde": "Black and green",
+      "grafiteAzul": "Graphite and blue"
+    },
+    "fundo": {
+      "label": "Background palette",
+      "hint": "Background, surfaces, borders and text.",
+      "creme": "Cream",
+      "neutro": "Neutral",
+      "frio": "Cool"
+    },
+    "destaque": {
+      "label": "Accent color",
+      "hint": "Buttons, active item, focus and charts.",
+      "padrao": "Default",
+      "custom": "Custom color",
+      "carmim": "Crimson",
+      "oceano": "Ocean",
+      "floresta": "Forest",
+      "ambar": "Amber",
+      "violeta": "Violet",
+      "preto": "Black",
+      "adjusted": "This color nearly disappears on the chosen background. The app uses {{color}} to keep contrast."
+    },
+    "nav": {
+      "label": "Navigation",
+      "side": "Side",
+      "top": "Top"
+    },
+    "toolbar": {
+      "label": "Action buttons",
+      "right": "Right",
+      "left": "Left"
+    },
+    "preview": {
+      "label": "Preview",
+      "button": "Button",
+      "active": "Active",
+      "text": "Regular text",
+      "muted": "and secondary text"
+    },
+    "resetAppearance": "Restore defaults"
   },
   "seed": {
     "board": "My studies",

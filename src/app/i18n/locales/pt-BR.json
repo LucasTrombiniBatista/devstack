@@ -292,7 +292,53 @@
       "title": "Planejamento",
       "capacity": "Horas disponíveis por semana",
       "capacityHint": "A visão semanal avisa quando o planejado passa disso."
-    }
+    },
+    "combos": {
+      "label": "Combinações prontas",
+      "padrao": "Padrão",
+      "brancoPreto": "Branco e preto",
+      "brancoVermelho": "Branco e vermelho",
+      "pretoVerde": "Preto e verde",
+      "grafiteAzul": "Grafite e azul"
+    },
+    "fundo": {
+      "label": "Paleta de fundo",
+      "hint": "Fundo, superfícies, bordas e texto.",
+      "creme": "Creme",
+      "neutro": "Neutro",
+      "frio": "Frio"
+    },
+    "destaque": {
+      "label": "Cor de destaque",
+      "hint": "Botões, item ativo, foco e gráficos.",
+      "padrao": "Padrão",
+      "custom": "Cor personalizada",
+      "carmim": "Carmim",
+      "oceano": "Oceano",
+      "floresta": "Floresta",
+      "ambar": "Âmbar",
+      "violeta": "Violeta",
+      "preto": "Preto",
+      "adjusted": "Essa cor quase some no fundo escolhido. O app usa {{color}} para manter o contraste."
+    },
+    "nav": {
+      "label": "Navegação",
+      "side": "Lateral",
+      "top": "Superior"
+    },
+    "toolbar": {
+      "label": "Botões de ação",
+      "right": "Direita",
+      "left": "Esquerda"
+    },
+    "preview": {
+      "label": "Prévia",
+      "button": "Botão",
+      "active": "Ativo",
+      "text": "Texto comum",
+      "muted": "e texto secundário"
+    },
+    "resetAppearance": "Restaurar padrão"
   },
   "seed": {
     "board": "Meus estudos",
