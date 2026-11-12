@@ -204,18 +204,26 @@ Como ficou:
 
 Hoje quem tem o app instalado só descobre uma versão nova indo ao GitHub. Com esta fase, o próprio app avisa e se atualiza.
 
-- [ ] Plugin oficial `tauri-plugin-updater` (Rust e `@tauri-apps/plugin-updater`), com permissão nas capabilities
-- [ ] Par de chaves de assinatura da atualização (`pnpm tauri signer generate`):
+- [x] Plugin oficial `tauri-plugin-updater` (Rust e `@tauri-apps/plugin-updater`), com permissão nas capabilities
+- [x] Par de chaves de assinatura da atualização (`pnpm tauri signer generate`):
   - a chave pública vai no `tauri.conf.json`;
   - a privada e a senha ficam só nos secrets do GitHub (`TAURI_SIGNING_PRIVATE_KEY` e `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`), nunca no repositório;
   - guardar uma cópia da chave privada fora do GitHub: sem ela, nenhuma versão futura consegue atualizar quem já instalou.
-- [ ] Workflow `Release` assinando os pacotes e publicando o `latest.json` junto dos instaladores (endpoint: `releases/latest/download/latest.json`)
-- [ ] Ao abrir o app (e a cada poucas horas com ele aberto), verificar se há versão nova; só no desktop, nunca na web
-- [ ] Aviso discreto com a versão nova e as notas do `CHANGELOG.md`, com "Atualizar agora" e "Depois"; "Depois" silencia aquela versão até a próxima
-- [ ] Progresso do download, instalação e reinício; se o timer estiver rodando, esperar ele terminar ou pedir confirmação
-- [ ] Em Configurações: versão atual, botão "Procurar atualizações" e opção de desligar a verificação automática
-- [ ] Textos via i18next (pt-BR e en)
+- [x] Workflow `Release` assinando os pacotes e publicando o `latest.json` junto dos instaladores (endpoint: `releases/latest/download/latest.json`)
+- [x] Ao abrir o app (e a cada poucas horas com ele aberto), verificar se há versão nova; só no desktop, nunca na web
+- [x] Aviso discreto com a versão nova e as notas do `CHANGELOG.md`, com "Atualizar agora" e "Depois"; "Depois" silencia aquela versão até a próxima
+- [x] Progresso do download, instalação e reinício; se o timer estiver rodando, esperar ele terminar ou pedir confirmação
+- [x] Em Configurações: versão atual, botão "Procurar atualizações" e opção de desligar a verificação automática
+- [x] Textos via i18next (pt-BR e en)
 - [ ] Testar o caminho completo: instalar uma versão, publicar a seguinte e conferir que o app atualiza sem perder dados
+
+Como ficou:
+
+- A chave privada e a senha ficam em `~/.tauri/` na máquina de quem gerou e nos secrets do GitHub. Perder as duas cópias obriga todo mundo a reinstalar à mão.
+- O aviso aparece no canto inferior direito; as novidades vêm do corpo da release, que sai do `CHANGELOG.md`.
+- No Windows a instalação roda em modo `passive` (barra de progresso, sem perguntas) e o app reinicia sozinho.
+- A lógica fica em `src/features/updates/store.ts`, com testes que simulam o plugin.
+- Falta o teste de ponta a ponta: precisa de duas releases com o atualizador (a primeira a ter é a próxima depois da v0.1.1).
 
 Observações:
 
