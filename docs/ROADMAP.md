@@ -125,10 +125,22 @@ Fora do MVP: blocos recorrentes e tela de revisão semanal (V1).
 
 ### Fase 6: Desktop e publicação
 
-- [ ] Tauri 2 sobre o mesmo front: bandeja com contagem regressiva, notificações nativas, metadados via plugin HTTP
-- [ ] PWA para abrir offline; deploy estático com HTTPS
-- [ ] Release `v0.1.0`: instalador Windows no CI, changelog
-- [ ] Passada de acessibilidade (WCAG AA) e de desempenho (abrir em menos de 1 s)
+- [x] Tauri 2 sobre o mesmo front: bandeja com contagem regressiva, notificações nativas, metadados via plugin HTTP
+- [x] PWA para abrir offline
+- [ ] Deploy estático com HTTPS (workflow pronto; falta ligar o GitHub Pages)
+- [x] Release `v0.1.0`: instalador Windows no CI, changelog
+- [x] Passada de acessibilidade (WCAG AA) e de desempenho (abrir em menos de 1 s)
+
+Como ficou:
+
+- O desktop é a mesma interface dentro do Tauri. Fechar a janela só a esconde: o timer segue na bandeja, que mostra a contagem e tem Abrir, Pausar ou Continuar, Pular e Sair.
+- No desktop, links abrem no navegador padrão e o título automático funciona para qualquer página (lê Open Graph e `<title>`).
+- O instalador (`.msi` e `.exe`) é gerado pelo workflow `Release` ao enviar uma tag `vX.Y.Z`. As notas saem do `CHANGELOG.md`.
+- O instalador não tem assinatura de código. O Windows mostra o aviso do SmartScreen, e máquinas com o Controle Inteligente de Aplicativos ligado bloqueiam a instalação. Resolver isso pede um certificado de assinatura (por exemplo Azure Trusted Signing).
+- O site usa caminhos relativos, então o mesmo build serve em subpasta do GitHub Pages e dentro do Tauri. Um service worker guarda os arquivos do app; os dados já ficam no IndexedDB.
+- O deploy do site fica no workflow `Site` e só roda quando a variável de repositório `DEPLOY_PAGES` vale `true`. Publicar torna o site público.
+- Acessibilidade: o teste `e2e/pwa.spec.ts` roda o axe (WCAG 2 A e AA) no quadro, Hoje, Semana, Configurações, painel do card e modo foco, nos dois temas.
+- Desempenho: as telas além do quadro carregam sob demanda; o pacote principal caiu de 790 kB para 510 kB, e o quadro com 1.000 cards abre em cerca de 230 ms.
 
 **Pronto quando:** o instalador funciona em máquina limpa; o site abre offline após a primeira visita.
 
