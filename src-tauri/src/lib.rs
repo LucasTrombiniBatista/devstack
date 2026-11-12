@@ -61,6 +61,15 @@ pub fn run() {
         .plugin(tauri_plugin_http::init())
         .invoke_handler(tauri::generate_handler![tray_status])
         .setup(|app| {
+            // Atualização automática: o app confere o `latest.json` da última release
+            // e só instala pacotes assinados com a chave cuja pública está no tauri.conf.json.
+            #[cfg(desktop)]
+            {
+                app.handle()
+                    .plugin(tauri_plugin_updater::Builder::new().build())?;
+                app.handle().plugin(tauri_plugin_process::init())?;
+            }
+
             if cfg!(debug_assertions) {
                 app.handle().plugin(
                     tauri_plugin_log::Builder::default()
