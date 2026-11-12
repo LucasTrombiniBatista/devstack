@@ -150,21 +150,30 @@ Como ficou:
 - [ ] Registrar atritos como issues e corrigir em lote
 - [ ] Medir o tempo para adicionar um card (meta: menos de 10 s)
 
-### Fase 8: Aparência personalizável
+### Fase 8: Aparência personalizável ✅
 
 Tudo fica em Configurações → Aparência e vale para o app inteiro. Nenhuma tela tem controles de cor próprios.
 
-- [ ] Duas paletas independentes:
+- [x] Duas paletas independentes:
   - **Fundo:** fundo da página, superfícies (cards, painéis, menus), bordas e texto. Exemplos de presets: Creme (atual), Branco, Grafite, Preto.
   - **Destaque:** botões primários, item ativo da navegação, foco do teclado, timer e gráficos. Presets (Carmim, Oceano, Floresta, Âmbar, Violeta, Preto) e seletor livre de cor.
-- [ ] Combinações prontas que juntam as duas (por exemplo "Branco e preto", "Branco e vermelho", "Preto e verde"), além da escolha livre de cada paleta
-- [ ] Regras de contraste aplicadas sozinhas:
+- [x] Combinações prontas que juntam as duas (por exemplo "Branco e preto", "Branco e vermelho", "Preto e verde"), além da escolha livre de cada paleta
+- [x] Regras de contraste aplicadas sozinhas:
   - o texto sobre o destaque vira claro ou escuro conforme a cor, com contraste mínimo de 4,5:1;
-  - se o destaque escolhido não tiver contraste de 3:1 com o fundo (por exemplo preto sobre fundo preto), o app ajusta a luminosidade e avisa na própria tela de configurações;
+  - se o destaque escolhido não tiver contraste de 4,5:1 com o fundo (ele também colore textos) (por exemplo preto sobre fundo preto), o app ajusta a luminosidade e avisa na própria tela de configurações;
   - tons derivados (hover, mapa de calor, séries dos gráficos) saem da cor de destaque, nunca de valores fixos.
-- [ ] Layout: navegação lateral ou superior; botões de ação à direita ou à esquerda
-- [ ] Prévia ao vivo dentro de Configurações e botão "Restaurar padrão"
-- [ ] Preferências no `settings-store` (versão 2 com migração); `apply-settings` escreve os tokens CSS (`--background`, `--card`, `--primary`, `--ring`, `--chart-*` etc.) no `<html>`
+- [x] Layout: navegação lateral ou superior; botões de ação à direita ou à esquerda
+- [x] Prévia ao vivo dentro de Configurações e botão "Restaurar padrão"
+- [x] Preferências no `settings-store` (versão 2 com migração); `apply-settings` escreve os tokens CSS (`--background`, `--card`, `--primary`, `--ring`, `--chart-*` etc.) no `<html>`
+
+Como ficou:
+
+- Paletas de fundo: Creme (o visual original), Neutro (branco puro ou preto puro) e Frio. O tema claro/escuro escolhe a variante de cada uma.
+- Destaque "Padrão" mantém o comportamento original (carmim no claro, creme no escuro). Qualquer outra cor vale nos dois temas.
+- A lógica fica em `src/app/appearance.ts` (funções puras com testes); `apply-settings` só escreve no `<html>` os tokens que mudam.
+- Botões de ação à esquerda invertem o cabeçalho do Quadro e da Semana (classe `page-header`).
+- Com a navegação no topo, as trilhas saem da barra; o filtro por trilha continua na barra do Quadro.
+- O teste `e2e/appearance.spec.ts` roda o axe nas quatro combinações prontas, com navegação no topo e botões à esquerda.
 
 **Pronto quando:** todas as combinações prontas passam no axe (WCAG AA) nas telas principais; trocar uma paleta muda o app inteiro sem recarregar.
 
