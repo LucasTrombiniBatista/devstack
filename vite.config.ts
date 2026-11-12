@@ -5,6 +5,15 @@ import { defineConfig } from 'vitest/config'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Caminhos relativos: o mesmo build serve no GitHub Pages (em subpasta) e dentro do Tauri.
+  base: './',
+  define: {
+    __BUILD_ID__: JSON.stringify(Date.now().toString(36)),
+  },
+  build: {
+    // Lista dos arquivos gerados, que o service worker guarda para o modo offline.
+    manifest: 'asset-manifest.json',
+  },
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

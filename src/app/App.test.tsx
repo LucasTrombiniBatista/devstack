@@ -27,7 +27,7 @@ describe('casca do app', () => {
     render(<App />)
 
     await user.click(screen.getByRole('link', { name: 'Configurações' }))
-    await user.click(screen.getByRole('radio', { name: 'Escuro' }))
+    await user.click(await screen.findByRole('radio', { name: 'Escuro' }))
     expect(document.documentElement).toHaveClass('dark')
 
     await user.click(screen.getByRole('radio', { name: 'Claro' }))
@@ -39,7 +39,7 @@ describe('casca do app', () => {
     render(<App />)
 
     await user.click(screen.getByRole('link', { name: 'Configurações' }))
-    await user.click(screen.getByRole('radio', { name: 'English' }))
+    await user.click(await screen.findByRole('radio', { name: 'English' }))
     expect(await screen.findByRole('link', { name: 'Board' })).toBeInTheDocument()
     expect(document.documentElement.lang).toBe('en')
 
