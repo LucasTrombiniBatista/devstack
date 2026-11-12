@@ -20,8 +20,18 @@ export function NotesEditor({ card, className }: { card: Card; className?: strin
   return (
     <Tabs defaultValue="write">
       <TabsList>
-        <TabsTrigger value="write">{t('card.write')}</TabsTrigger>
-        <TabsTrigger value="preview">{t('card.preview')}</TabsTrigger>
+        <TabsTrigger
+          value="write"
+          className="text-foreground/80 data-[state=active]:text-foreground"
+        >
+          {t('card.write')}
+        </TabsTrigger>
+        <TabsTrigger
+          value="preview"
+          className="text-foreground/80 data-[state=active]:text-foreground"
+        >
+          {t('card.preview')}
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="write">
         <Textarea

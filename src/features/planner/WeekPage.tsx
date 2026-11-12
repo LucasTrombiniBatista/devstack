@@ -248,7 +248,9 @@ function DayColumn({
       <h2
         className={cn(
           'flex h-9 items-center justify-center text-xs font-extrabold first-letter:uppercase',
-          today ? 'text-brand' : 'text-muted-foreground',
+          today
+            ? 'text-primary underline decoration-2 underline-offset-4'
+            : 'text-muted-foreground',
         )}
       >
         <span className="sr-only">{label}</span>
@@ -416,7 +418,12 @@ export function WeekPage() {
             )}
           </aside>
 
-          <div className="flex min-w-0 flex-1 overflow-x-auto">
+          <div
+            role="group"
+            aria-label={t('week.grid')}
+            tabIndex={0}
+            className="flex min-w-0 flex-1 overflow-x-auto rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
             <div aria-hidden className="w-11 shrink-0 pt-9">
               <div className="relative" style={{ height: GRID_PX }}>
                 {HOURS.map((min) => (
