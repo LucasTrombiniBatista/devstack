@@ -222,7 +222,7 @@ Como ficou:
 - A chave privada e a senha ficam em `~/.tauri/` na máquina de quem gerou e nos secrets do GitHub. Perder as duas cópias obriga todo mundo a reinstalar à mão.
 - O aviso aparece no canto inferior direito; as novidades vêm do corpo da release, que sai do `CHANGELOG.md`.
 - No Windows a instalação roda em modo `passive` (barra de progresso, sem perguntas) e o app reinicia sozinho.
-- O repositório do código é privado, e o app não consegue baixar arquivos dele sem login. Por isso as releases saem no repositório público `devstack-releases` (só instaladores, assinaturas e `latest.json`), usando o secret `RELEASES_TOKEN`: um token fine-grained com permissão Contents de escrita apenas nesse repositório. A v0.1.2 ainda aponta para o repositório privado; a atualização automática vale a partir da v0.1.3.
+- O app baixa o `latest.json` e os pacotes das releases deste repositório, por isso ele precisa ser público (foi aberto junto com esta fase). A v0.1.2 é a primeira versão com o atualizador.
 - A lógica fica em `src/features/updates/store.ts`, com testes que simulam o plugin.
 - Falta o teste de ponta a ponta: precisa de duas releases com o atualizador (a primeira a ter é a próxima depois da v0.1.1).
 
@@ -263,6 +263,6 @@ Detalhar cada versão só ao chegar nela, com o aprendizado do uso real.
 
 ## Pendências em aberto
 
-- **Open source ou produto** (seção 11): hoje com licença MIT; decidir antes de divulgar.
+- **Open source ou produto** (seção 11): decidido em 2026-11-12, o projeto é open source (licença MIT) e o repositório é público.
 - **Nome:** a pasta é `DevTrack` e o produto é "DevStack" (constante em `src/lib/constants.ts`); confirmar domínio antes de publicar.
 - **Hospedagem do site estático:** decidir na Fase 6.
