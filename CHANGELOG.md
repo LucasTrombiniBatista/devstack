@@ -4,6 +4,12 @@ Todas as mudanças relevantes do projeto ficam registradas aqui. O formato segue
 [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.1.4] - 2026-11-12
+
+### Corrigido
+
+- Configurações mostrava duas barras de rolagem, e a maior rolava até uma área vazia. Agora só o conteúdo rola, em todas as telas e com a navegação lateral ou no topo.
+
 ## [0.1.3] - 2026-11-12
 
 ### Alterado
