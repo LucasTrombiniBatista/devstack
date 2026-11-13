@@ -71,3 +71,31 @@ test('trocar a combinação em Configurações muda o app inteiro sem recarregar
   await page.getByRole('button', { name: 'Restaurar padrão' }).click()
   expect(await primary()).toBe('#b81437')
 })
+
+for (const nav of ['side', 'top']) {
+  test(`só o conteúdo rola, sem barra extra na página (navegação ${nav})`, async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 720 })
+    await page.addInitScript((nav) => {
+      localStorage.setItem(
+        'devstack:settings',
+        JSON.stringify({
+          state: { theme: 'light', navPosition: nav, density: 'comfortable', language: 'pt-BR' },
+          version: 2,
+        }),
+      )
+    }, nav)
+    for (const [hash, heading] of [
+      ['#/settings', 'Configurações'],
+      ['#/board', 'Meus estudos'],
+      ['#/lobby', 'Lobby'],
+    ]) {
+      await page.goto(`/${hash}`)
+      await expect(page.getByRole('heading', { name: heading, level: 1 })).toBeVisible()
+      const sizes = await page.evaluate(() => ({
+        page: document.documentElement.scrollHeight,
+        viewport: window.innerHeight,
+      }))
+      expect(sizes.page, hash).toBeLessThanOrEqual(sizes.viewport)
+    }
+  })
+}

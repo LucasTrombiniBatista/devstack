@@ -169,7 +169,7 @@ export function AppearanceSettings() {
             <label
               title={t('settings.destaque.custom')}
               className={cn(
-                'flex size-8 cursor-pointer items-center justify-center overflow-hidden rounded-full ring-1 ring-border has-focus-visible:ring-3 has-focus-visible:ring-ring',
+                'relative flex size-8 cursor-pointer items-center justify-center overflow-hidden rounded-full ring-1 ring-border has-focus-visible:ring-3 has-focus-visible:ring-ring',
                 custom && 'ring-2 ring-foreground',
               )}
               style={{

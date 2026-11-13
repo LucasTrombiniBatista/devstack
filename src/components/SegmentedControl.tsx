@@ -22,7 +22,7 @@ export function SegmentedControl<T extends string>({ label, value, options, onCh
           <label
             key={option.value}
             className={cn(
-              'cursor-pointer rounded-md px-3 py-1 text-sm transition-colors',
+              'relative cursor-pointer rounded-md px-3 py-1 text-sm transition-colors',
               'has-focus-visible:ring-2 has-focus-visible:ring-ring',
               option.value === value
                 ? 'bg-foreground font-bold text-background'

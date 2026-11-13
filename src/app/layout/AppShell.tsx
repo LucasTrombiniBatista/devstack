@@ -236,7 +236,8 @@ export function AppShell() {
         </section>
       </aside>
 
-      <main className="min-h-0 min-w-0 flex-1 overflow-auto">
+      {/* relative: elementos absolutos (inputs invisíveis) ficam presos à área que rola. */}
+      <main className="relative min-h-0 min-w-0 flex-1 overflow-auto">
         <Outlet />
       </main>
 
