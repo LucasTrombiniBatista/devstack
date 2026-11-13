@@ -27,3 +27,6 @@ dist-ssr
 coverage
 playwright-report
 test-results
+
+# Vídeo de apresentação (local, fora do Git)
+video
