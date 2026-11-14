@@ -4,6 +4,12 @@ Todas as mudanças relevantes do projeto ficam registradas aqui. O formato segue
 [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.1.5] - 2026-11-14
+
+### Corrigido
+
+- O app abria uma cópia nova a cada clique no atalho, já que fechar a janela só o esconde na bandeja. Agora roda uma instância só: abrir de novo traz a janela existente para a frente.
+
 ## [0.1.4] - 2026-11-12
 
 ### Corrigido
