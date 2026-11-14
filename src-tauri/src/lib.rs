@@ -55,7 +55,17 @@ fn show_main(app: &AppHandle) {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    tauri::Builder::default()
+    let builder = tauri::Builder::default();
+
+    // Uma instância só: fechar a janela deixa o app na bandeja, então abrir de novo
+    // pelo atalho criava uma segunda cópia. Agora a segunda cópia só traz a janela
+    // da primeira para a frente e sai. Precisa ser o primeiro plugin registrado.
+    #[cfg(desktop)]
+    let builder = builder.plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
+        show_main(app);
+    }));
+
+    builder
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_http::init())
