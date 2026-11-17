@@ -4,6 +4,20 @@ Todas as mudanças relevantes do projeto ficam registradas aqui. O formato segue
 [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.1.6] - 2026-11-17
+
+### Adicionado
+
+- Blocos recorrentes: ao planejar, "Repetir toda semana" deixa escolher os dias da semana. Dá para remover só um dia ou a repetição inteira, e encerrar o dia empurra só a ocorrência pendente.
+- Indicador de carregamento ao abrir uma tela, no lugar da área em branco.
+
+### Corrigido
+
+- A tela Hoje mostrava só a coluna Hoje de um dos quadros. Agora mostra a de todos, mais os cards não concluídos com data-alvo no dia.
+- Hoje e Semana continuavam no dia anterior quando ficavam abertas na virada da meia-noite. Agora trocam de dia sozinhas.
+- Excluir um card deixava os blocos planejados dele na Semana, sem título e somando na capacidade. Agora os blocos saem junto.
+- Uma falha na importação não mostrava nenhum aviso. Agora aparece uma mensagem, em português ou inglês.
+
 ## [0.1.5] - 2026-11-14
 
 ### Corrigido
