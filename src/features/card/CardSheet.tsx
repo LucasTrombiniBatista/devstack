@@ -271,7 +271,7 @@ function CardForm({ card, columns, tracks, items }: Loaded) {
           </Select>
         </Field>
         <Field label={t('card.platform')} htmlFor="card-platform">
-          <Input id="card-platform" {...plataforma} placeholder="Alura, DIO, YouTube" />
+          <Input id="card-platform" {...plataforma} placeholder={t('card.platformPlaceholder')} />
         </Field>
         <Field label={t('card.estimate')} htmlFor="card-estimate">
           <Input id="card-estimate" {...estimativa} inputMode="decimal" placeholder="?" />
