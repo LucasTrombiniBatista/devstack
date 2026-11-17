@@ -1,4 +1,4 @@
-import { expect, test, type Locator, type Page } from '@playwright/test'
+﻿import { expect, test, type Locator, type Page } from '@playwright/test'
 
 // Integração entre o quadro e a tela Hoje (/#/today).
 test.use({ locale: 'pt-BR' })
@@ -228,11 +228,9 @@ test('card com dataAlvo = hoje em outra coluna aparece em /today', async ({ page
 })
 
 test('card na coluna Hoje de um segundo quadro aparece em /today', async ({ page }) => {
-  // BUG: loadToday usa só boardsRepo.list()[0] (ordem por UUID, não por criação);
-  // a coluna Hoje dos outros quadros é ignorada.
-  test.fail()
   await seed(page, { titulo: 'Outro quadro', papel: 'hoje', novoBoard: 'Quadro 2' })
   await goToday(page)
+  await page.reload()
   await expect(todayPanel(page).getByRole('button', { name: 'Outro quadro' })).toBeVisible({
     timeout: 3000,
   })
