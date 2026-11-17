@@ -230,6 +230,11 @@
     "start": "Start",
     "end": "End",
     "removeBlock": "Remove block",
+    "repeat": "Repeat every week",
+    "repeatOn": "Days of the week",
+    "repeats": "repeats weekly",
+    "removeOccurrence": "Remove this day only",
+    "removeSeries": "Remove repeat",
     "openCard": "Open card",
     "grid": "Week grid"
   },

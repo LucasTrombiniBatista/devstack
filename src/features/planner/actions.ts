@@ -1,5 +1,6 @@
 import { cardsRepo, columnsRepo, dailyGoalsRepo, planBlocksRepo, sessionsRepo } from '@/data/repos'
 import type { Card, PlanBlock } from '@/data/types'
+import { repeatDays, weekdayOf } from '@/data/recurrence'
 import { localDate } from '@/lib/format'
 import {
   addDays,
@@ -22,17 +23,21 @@ export async function planCard(
   dia: string,
   inicioMin: number,
   durMin?: number,
+  /** Dias da semana para repetir (0 = domingo); vazio ou ausente, o bloco é avulso. */
+  diasSemana?: number[],
 ): Promise<PlanBlock | null> {
   const card = await cardsRepo.get(cardId)
   if (!card) return null
   const dur = durMin ?? defaultDuration(card.estimativaMin)
   const start = clampStart(snap(inicioMin), dur)
+  const recorrente = (diasSemana?.length ?? 0) > 0
   const block = await planBlocksRepo.create({
     cardId,
     dia,
     inicio: fromMin(start),
     fim: fromMin(start + dur),
-    recorrente: false,
+    recorrente,
+    ...(recorrente ? { diasSemana: [...diasSemana!].sort() } : {}),
   })
   const columns = await columnsRepo.listByBoard(card.boardId)
   const semana = columns.find((column) => column.papel === 'semana')
@@ -41,11 +46,25 @@ export async function planCard(
   return block
 }
 
-/** Muda o bloco de dia ou horário, mantendo a duração. */
+/**
+ * Muda o bloco de dia ou horário, mantendo a duração. Numa ocorrência de série, o novo
+ * horário vale para a série toda, e trocar de dia troca aquele dia da semana pelo novo.
+ */
 export async function moveBlock(block: PlanBlock, dia: string, inicioMin: number) {
   const dur = blockMin(block)
   const start = clampStart(snap(inicioMin), dur)
-  return planBlocksRepo.update(block.id, { dia, inicio: fromMin(start), fim: fromMin(start + dur) })
+  const horario = { inicio: fromMin(start), fim: fromMin(start + dur) }
+  if (!block.recorrente) return planBlocksRepo.update(block.id, { dia, ...horario })
+  // A ocorrência traz o dia dela; o início da série vem do registro gravado.
+  const serie = (await planBlocksRepo.get(block.id)) ?? block
+  const dias = repeatDays(serie).filter((d) => d !== weekdayOf(block.dia))
+  const diasSemana = [...new Set([...dias, weekdayOf(dia)])].sort()
+  // Se o novo dia cai antes do início da série, a série passa a começar nele.
+  return planBlocksRepo.update(block.id, {
+    ...horario,
+    diasSemana,
+    dia: dia < serie.dia ? dia : serie.dia,
+  })
 }
 
 /** Muda o fim do bloco; no mínimo 30 minutos, no máximo até o fim da grade. */
@@ -65,11 +84,28 @@ export async function pendingBlocks(day: string): Promise<{ block: PlanBlock; ca
   return pending
 }
 
-/** Empurra os pendentes do dia para o dia seguinte, no mesmo horário. */
+/**
+ * Empurra os pendentes do dia para o dia seguinte, no mesmo horário. Pode cair junto de
+ * outro bloco amanhã: dois blocos no mesmo horário são permitidos. Numa série, só a
+ * ocorrência de hoje é pulada e vira um bloco avulso amanhã; a série segue igual.
+ */
 export async function pushPending(day: string): Promise<number> {
   const pending = await pendingBlocks(day)
   const next = addDays(day, 1)
-  for (const { block } of pending) await planBlocksRepo.update(block.id, { dia: next })
+  for (const { block } of pending) {
+    if (!block.recorrente) {
+      await planBlocksRepo.update(block.id, { dia: next })
+      continue
+    }
+    await planBlocksRepo.skipOccurrence(block.id, day)
+    await planBlocksRepo.create({
+      cardId: block.cardId,
+      dia: next,
+      inicio: block.inicio,
+      fim: block.fim,
+      recorrente: false,
+    })
+  }
   return pending.length
 }
 

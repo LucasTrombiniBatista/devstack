@@ -25,6 +25,7 @@ import { formatDuration } from '@/lib/format'
 import { daySummary, pendingBlocks, pushPending, type DaySummary } from './actions'
 import { useGoalStatus } from './useGoalStatus'
 import { useToday } from './useToday'
+import { blockKey } from '@/data/recurrence'
 import { parseDay } from './time'
 
 async function loadToday(day: string) {
@@ -166,7 +167,7 @@ function EndDayDialog({ day, onClose }: { day: string; onClose: () => void }) {
                 <p className="font-bold">{t('today.pending', { count: data.pending.length })}</p>
                 <ul className="flex flex-col gap-1">
                   {data.pending.map(({ block, card }) => (
-                    <li key={block.id} className="flex gap-2">
+                    <li key={blockKey(block)} className="flex gap-2">
                       <span className="font-mono text-xs text-muted-foreground">
                         {block.inicio}
                       </span>
@@ -236,7 +237,7 @@ export function TodayPage() {
           ) : (
             <ul className="flex flex-col gap-1.5">
               {data.plan.map(({ block, card }) => (
-                <li key={block.id} className="flex items-center gap-3">
+                <li key={blockKey(block)} className="flex items-center gap-3">
                   <span className="w-24 shrink-0 font-mono text-xs text-muted-foreground">
                     {block.inicio}–{block.fim}
                   </span>
