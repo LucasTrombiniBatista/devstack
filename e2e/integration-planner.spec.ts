@@ -219,11 +219,7 @@ test('virada da meia-noite com Hoje aberto troca de dia sozinha', async ({ page 
   await expect(todayPlan(page).getByRole('listitem')).toContainText('Quinta', { timeout: 1000 })
 })
 
-// Bug: o campo `recorrente` (src/data/types.ts:96) não tem UI nem é lido por
-// planBlocksRepo.listByDays (src/data/repos/index.ts:173). Não há como criar um bloco que se
-// repita: o diálogo de planejamento só tem dia, início e fim. O teste procura o controle.
 test('bloco recorrente aparece nas semanas seguintes', async ({ page }) => {
-  test.fail()
   await startClock(page)
   await newCards(page, 'Inglês')
   await page.getByRole('link', { name: 'Semana' }).click()
@@ -233,10 +229,43 @@ test('bloco recorrente aparece nas semanas seguintes', async ({ page }) => {
   await dialog.getByLabel(/Repetir|Recorrente/).check({ timeout: 2000 })
   await dialog.getByRole('button', { name: 'Salvar' }).click()
 
-  await page.clock.fastForward('168:00:00')
+  await page.clock.fastForward(7 * 24 * 60 * 60 * 1000)
   await page.reload()
   await goToday(page)
   await expect(todayPlan(page).getByRole('listitem')).toContainText('Inglês')
+})
+
+test('repetir em dias escolhidos e remover só um dia', async ({ page }) => {
+  await startClock(page)
+  await newCards(page, 'Inglês')
+  await page.getByRole('link', { name: 'Semana' }).click()
+  await page.getByRole('button', { name: 'Planejar Inglês' }).click()
+  const dialog = page.getByRole('dialog', { name: 'Planejar card' })
+  await dialog.getByLabel('Dia').selectOption({ label: QUA })
+  await dialog.getByLabel('Início').selectOption({ label: '07:00' })
+  await dialog.getByLabel('Repetir toda semana').check()
+  // Quarta já vem marcada; marca sexta também.
+  await expect(dialog.getByRole('button', { name: 'quarta-feira' })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  )
+  await dialog.getByRole('button', { name: 'sexta-feira' }).click()
+  await dialog.getByRole('button', { name: 'Salvar' }).click()
+  await expect(dialog).toBeHidden()
+
+  const blocos = page.getByRole('button', { name: /^Inglês, .*repete toda semana$/ })
+  await expect(blocos).toHaveCount(2)
+  await expect(page.locator('[data-day="2026-11-11"]').getByText('Inglês')).toBeVisible()
+  await expect(page.locator('[data-day="2026-11-13"]').getByText('Inglês')).toBeVisible()
+
+  // Remove só a sexta; a quarta continua e a próxima semana também tem sexta.
+  await page.locator('[data-day="2026-11-13"]').getByText('Inglês').click()
+  const edit = page.getByRole('dialog', { name: 'Editar bloco' })
+  await edit.getByRole('button', { name: 'Remover só este dia' }).click()
+  await expect(blocos).toHaveCount(1)
+  await page.getByRole('button', { name: 'Próxima semana' }).click()
+  await expect(page.locator('[data-day="2026-11-20"]').getByText('Inglês')).toBeVisible()
+  await expect(page.locator('[data-day="2026-11-18"]').getByText('Inglês')).toBeVisible()
 })
 
 test('card excluído com bloco planejado some de Hoje e da grade da Semana', async ({ page }) => {
