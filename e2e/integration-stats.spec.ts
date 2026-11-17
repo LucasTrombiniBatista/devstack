@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test'
+﻿import { expect, test, type Page } from '@playwright/test'
 
 /**
  * Integração das estatísticas: o mesmo dado precisa aparecer igual em Hoje (resumo e
@@ -300,7 +300,6 @@ test('Hoje aberto na virada do dia passa a mostrar o novo dia, como o Lobby', as
   // (src/features/planner/TodayPage.tsx:198) e nunca o atualiza. Com a tela aberta
   // depois da meia-noite, o resumo e a meta continuam no dia anterior, enquanto o
   // Lobby recalcula "hoje" com new Date() a cada leitura.
-  test.fail()
   await page.clock.install({ time: new Date('2026-11-11T23:58:00') })
   await page.goto('/#/today')
   await expect(page.getByText('quarta-feira, 11 de novembro')).toBeVisible()
