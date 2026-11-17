@@ -1,4 +1,4 @@
-import {
+﻿import {
   DndContext,
   DragOverlay,
   MouseSensor,
@@ -27,10 +27,12 @@ import {
 import { DEFAULT_SETTINGS, SETTINGS_ID } from '@/data/seed'
 import type { Card, PlanBlock, Track } from '@/data/types'
 import { TrackDot } from '@/features/tracks/TrackDot'
-import { formatDuration, formatWeekRange, isoWeek, localDate, normalizeText } from '@/lib/format'
+import { byOrdem } from '@/lib/order'
+import { formatDuration, formatWeekRange, isoWeek, normalizeText } from '@/lib/format'
 import { cn } from '@/lib/utils'
 import { moveBlock, planCard, resizeBlock } from './actions'
 import { PlanDialog } from './PlanDialog'
+import { useToday } from './useToday'
 import {
   blockMin,
   DAY_END,
@@ -50,9 +52,9 @@ const HOURS = Array.from({ length: (DAY_END - DAY_START) / 60 }, (_, i) => DAY_S
 async function loadWeek(days: string[]) {
   const [board] = await boardsRepo.list()
   if (!board) return null
-  const [columns, cards, tracks, blocks, settings] = await Promise.all([
+  const [columns, cards, tracks, allBlocks, settings] = await Promise.all([
     columnsRepo.listByBoard(board.id),
-    cardsRepo.listByBoard(board.id),
+    cardsRepo.list().then((all) => all.sort(byOrdem)),
     tracksRepo.listSorted(),
     planBlocksRepo.listByDays(days),
     settingsRepo.get(SETTINGS_ID),
@@ -60,11 +62,13 @@ async function loadWeek(days: string[]) {
   const plannable = new Set(
     columns.filter((c) => c.papel && PLANNABLE.has(c.papel)).map((c) => c.id),
   )
+  const byId = new Map(cards.map((card) => [card.id, card]))
   return {
-    cards: new Map(cards.map((card) => [card.id, card])),
+    cards: byId,
     candidates: cards.filter((card) => plannable.has(card.columnId)),
     tracks: new Map(tracks.map((track) => [track.id, track])),
-    blocks,
+    // Bloco de card excluído não aparece nem conta na capacidade.
+    blocks: allBlocks.filter((block) => byId.has(block.cardId)),
     capacity: settings?.capacidadeSemanalMin ?? DEFAULT_SETTINGS.capacidadeSemanalMin,
   }
 }
@@ -284,7 +288,7 @@ export function WeekPage() {
   const [query, setQuery] = useState('')
   const [editing, setEditing] = useState<Editing>(null)
   const [dragging, setDragging] = useState<Card | null>(null)
-  const [today] = useState(() => localDate(new Date()))
+  const today = useToday()
 
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 6 } }),

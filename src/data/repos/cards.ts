@@ -27,6 +27,18 @@ export const cardsRepo = {
   ...base,
   listByColumn,
 
+  /** Exclui o card (soft delete) junto com os blocos planejados dele. */
+  async remove(id: string): Promise<void> {
+    await db.transaction('rw', db.cards, db.planBlocks, async () => {
+      await base.remove(id)
+      const now = nowIso()
+      const blocks = await db.planBlocks.where('cardId').equals(id).toArray()
+      for (const block of blocks.filter((b) => b.removidoEm === null)) {
+        await db.planBlocks.put({ ...bump(block, {}), removidoEm: now })
+      }
+    })
+  },
+
   async listByBoard(boardId: string): Promise<Card[]> {
     return (await base.listBy('boardId', boardId)).sort(byOrdem)
   },

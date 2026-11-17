@@ -1,4 +1,4 @@
-import { useLiveQuery } from 'dexie-react-hooks'
+﻿import { useLiveQuery } from 'dexie-react-hooks'
 import { Moon, Play } from 'lucide-react'
 import { useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -21,20 +21,22 @@ import { boardsRepo, cardsRepo, columnsRepo, dailyGoalsRepo, planBlocksRepo } fr
 import type { DailyGoal } from '@/data/types'
 import { useDraft } from '@/features/card/useDraft'
 import { startFocus } from '@/features/timer/useClock'
-import { formatDuration, localDate } from '@/lib/format'
+import { formatDuration } from '@/lib/format'
 import { daySummary, pendingBlocks, pushPending, type DaySummary } from './actions'
 import { useGoalStatus } from './useGoalStatus'
+import { useToday } from './useToday'
 import { parseDay } from './time'
 
 async function loadToday(day: string) {
-  const [board] = await boardsRepo.list()
+  const boards = await boardsRepo.list()
   const [summary, blocks, columns, cards] = await Promise.all([
     daySummary(day),
     planBlocksRepo.listByDays([day]),
-    board ? columnsRepo.listByBoard(board.id) : [],
+    Promise.all(boards.map((board) => columnsRepo.listByBoard(board.id))).then((all) => all.flat()),
     cardsRepo.list(),
   ])
-  const hoje = columns.find((column) => column.papel === 'hoje')
+  // A coluna Hoje de todos os quadros entra na tela, não só a do primeiro.
+  const hojeIds = new Set(columns.filter((column) => column.papel === 'hoje').map((c) => c.id))
   const byId = new Map(cards.map((card) => [card.id, card]))
   return {
     summary,
@@ -42,7 +44,10 @@ async function loadToday(day: string) {
       const card = byId.get(block.cardId)
       return card ? [{ block, card }] : []
     }),
-    hoje: hoje ? cards.filter((card) => card.columnId === hoje.id) : [],
+    // Entra também o card com data-alvo de hoje que ainda não foi concluído.
+    hoje: cards.filter(
+      (card) => hojeIds.has(card.columnId) || (card.dataAlvo === day && card.concluidoEm === null),
+    ),
   }
 }
 
@@ -195,7 +200,7 @@ export function TodayPage() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const openCard = useUi((state) => state.openCard)
-  const [day] = useState(() => localDate(new Date()))
+  const day = useToday()
   const data = useLiveQuery(() => loadToday(day), [day])
   const [ending, setEnding] = useState(false)
   const dateLabel = new Intl.DateTimeFormat(i18n.language, {

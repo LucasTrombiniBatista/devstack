@@ -8,7 +8,8 @@
   "common": {
     "save": "Salvar",
     "cancel": "Cancelar",
-    "delete": "Excluir"
+    "delete": "Excluir",
+    "loading": "Carregando…"
   },
   "nav": {
     "lobby": "Lobby",
@@ -57,6 +58,7 @@
     "type": "Tipo",
     "priority": "Prioridade",
     "platform": "Plataforma",
+    "platformPlaceholder": "Alura, DIO, YouTube",
     "estimate": "Estimativa (horas)",
     "dueDate": "Data alvo",
     "tags": "Tags",
@@ -140,7 +142,9 @@
     "repeated": "{{count}} já existem e serão ignorados.",
     "items": "{{count}} itens",
     "done": "concluído",
-    "confirm": "Importar {{count}} cards"
+    "confirm": "Importar {{count}} cards",
+    "failed": "Não deu para importar. Tente de novo.",
+    "noColumns": "O quadro não tem colunas para receber os cards."
   },
   "data": {
     "title": "Dados",

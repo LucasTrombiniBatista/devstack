@@ -13,6 +13,15 @@ const alive = <T extends { removidoEm: string | null }>(entity: T) => entity.rem
 const keyOf = (card: { url: string | null; titulo: string }, trilha: string | null) =>
   card.url ? `u:${card.url}` : `t:${normalizeText(card.titulo)}|${normalizeText(trilha ?? '')}`
 
+/** Erro de importação com código; a interface traduz pelo código. */
+export class ImportError extends Error {
+  readonly code: 'no-columns'
+  constructor(code: 'no-columns') {
+    super(code)
+    this.code = code
+  }
+}
+
 export type ImportPlan = {
   /** Cards que ainda não existem no quadro. */
   novos: ParsedCard[]
@@ -59,7 +68,7 @@ export async function applyImport(
     const columns = (await db.columns.where('boardId').equals(boardId).toArray())
       .filter(alive)
       .sort(byOrdem)
-    if (columns.length === 0) throw new Error('O quadro não tem colunas para receber os cards.')
+    if (columns.length === 0) throw new ImportError('no-columns')
     const backlog = columns.find((column) => column.papel === 'backlog') ?? columns[0]
     const feito = columns.find((column) => column.papel === 'feito') ?? columns.at(-1)!
 

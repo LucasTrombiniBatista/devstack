@@ -1,4 +1,4 @@
-import { expect, test, type Locator, type Page } from '@playwright/test'
+﻿import { expect, test, type Locator, type Page } from '@playwright/test'
 
 /**
  * Consistência entre o planejamento da Semana (/#/week) e a tela Hoje (/#/today).
@@ -207,7 +207,6 @@ test('virada da meia-noite: ao voltar para Hoje, vale o novo dia', async ({ page
 // e nunca o recalcula. Com a tela aberta na virada da meia-noite, ela continua mostrando o
 // dia anterior (data, plano e meta), e "Encerrar o dia" empurra os blocos de ontem para hoje.
 test('virada da meia-noite com Hoje aberto troca de dia sozinha', async ({ page }) => {
-  test.fail()
   await startClock(page, '2026-11-11T23:58:00')
   await newCards(page, 'Quarta', 'Quinta')
   await plan(page, 'Quarta', QUA, '19:00')
@@ -263,7 +262,6 @@ test('card excluído com bloco planejado some de Hoje e da grade da Semana', asy
 // Hoje esconde o bloco órfão, mas a Semana desenha um bloco sem título (rótulo ", qua 10:00–11:00",
 // que não abre nada) e soma a duração dele em "Planejado" (WeekPage.tsx:307).
 test('card excluído não deixa bloco órfão nem conta na capacidade da Semana', async ({ page }) => {
-  test.fail()
   await startClock(page)
   await newCards(page, 'Apagar', 'Fica')
   await plan(page, 'Apagar', QUA, '10:00')

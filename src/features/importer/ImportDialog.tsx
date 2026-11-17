@@ -15,7 +15,7 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { boardsRepo } from '@/data/repos'
 import { formatDuration } from '@/lib/format'
-import { applyImport, planImport } from './apply'
+import { applyImport, ImportError, planImport } from './apply'
 import { parseImport } from './parse'
 
 function ImportForm({ initialText }: { initialText: string }) {
@@ -24,6 +24,7 @@ function ImportForm({ initialText }: { initialText: string }) {
   const closeImport = useUi((state) => state.closeImport)
   const [text, setText] = useState(initialText)
   const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const fileInput = useRef<HTMLInputElement>(null)
 
   const parsed = useMemo(() => parseImport(text), [text])
@@ -46,10 +47,17 @@ function ImportForm({ initialText }: { initialText: string }) {
   async function confirm() {
     if (!plan || novos.length === 0) return
     setBusy(true)
+    setError(null)
     try {
       await applyImport(novos, plan.boardId)
       closeImport()
       void navigate('/board')
+    } catch (err) {
+      setError(
+        err instanceof ImportError && err.code === 'no-columns'
+          ? t('import.noColumns')
+          : t('import.failed'),
+      )
     } finally {
       setBusy(false)
     }
@@ -138,6 +146,12 @@ function ImportForm({ initialText }: { initialText: string }) {
           </div>
         )}
       </div>
+
+      {error && (
+        <p role="alert" className="text-sm font-bold text-destructive">
+          {error}
+        </p>
+      )}
 
       <DialogFooter>
         <Button type="button" variant="outline" onClick={closeImport}>
