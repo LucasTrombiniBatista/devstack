@@ -93,7 +93,12 @@ export interface PlanBlock extends Entity {
   inicio: string
   /** HH:mm. */
   fim: string
+  /** Série semanal: `dia` vira a data de início e o bloco se repete em `diasSemana`. */
   recorrente: boolean
+  /** 0 = domingo … 6 = sábado. Só na série; vazio ou ausente, vale o dia da semana de `dia`. */
+  diasSemana?: number[]
+  /** Dias (AAAA-MM-DD) em que a série foi pulada: removida ou empurrada só naquele dia. */
+  excecoes?: string[]
 }
 
 /** O valor atual da meta não é guardado: sai das sessões e dos cards concluídos do dia. */

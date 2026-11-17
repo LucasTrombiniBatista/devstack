@@ -1,4 +1,4 @@
-import { expect, test, type Locator, type Page } from '@playwright/test'
+﻿import { expect, test, type Locator, type Page } from '@playwright/test'
 
 // Integração entre o quadro e a tela Hoje (/#/today).
 test.use({ locale: 'pt-BR' })
@@ -105,7 +105,7 @@ async function seed(
       dataAlvo: input.dataAlvo ?? null,
       notasMd: '',
       ordem: 'a0',
-      concluidoEm: null,
+      concluidoEm: input.papel === 'feito' ? now : null,
       miniaturaUrl: null,
       links: [],
     })
@@ -204,7 +204,7 @@ test('concluir (Hoje → Feito) conta no resumo e desfazer limpa concluidoEm', a
   await expect(todayPanel(page).getByText('Nenhum card na coluna Hoje.')).toBeVisible()
 
   await goBoard(page)
-  // Desfaz pelo painel do card: o arrasto de Feito de volta para Hoje não acontece no viewport padrão.
+  // Desfaz pelo painel do card, para cobrir também esse caminho.
   await column(page, 'Feito').getByRole('button', { name: 'Kafka' }).click()
   await page.getByRole('dialog').getByRole('combobox', { name: 'Coluna' }).click()
   await page.getByRole('option', { name: 'Hoje' }).click()
@@ -219,20 +219,21 @@ test('concluir (Hoje → Feito) conta no resumo e desfazer limpa concluidoEm', a
 })
 
 test('card com dataAlvo = hoje em outra coluna aparece em /today', async ({ page }) => {
-  // BUG: TodayPage só olha a coluna de papel "hoje"; Card.dataAlvo é ignorado,
-  // então um card com prazo para hoje no Backlog some da tela Hoje.
-  test.fail()
   await seed(page, { titulo: 'Prazo hoje', papel: 'backlog', dataAlvo: localToday() })
+  await seed(page, { titulo: 'Prazo hoje feito', papel: 'feito', dataAlvo: localToday() })
   await goToday(page)
-  await expect(page.getByRole('button', { name: 'Prazo hoje' })).toBeVisible({ timeout: 3000 })
+  await page.reload()
+  await expect(todayPanel(page).getByRole('button', { name: 'Prazo hoje' })).toBeVisible({
+    timeout: 3000,
+  })
+  // Card concluído com prazo hoje não volta para a lista.
+  await expect(todayPanel(page).getByRole('button', { name: 'Prazo hoje feito' })).toHaveCount(0)
 })
 
 test('card na coluna Hoje de um segundo quadro aparece em /today', async ({ page }) => {
-  // BUG: loadToday usa só boardsRepo.list()[0] (ordem por UUID, não por criação);
-  // a coluna Hoje dos outros quadros é ignorada.
-  test.fail()
   await seed(page, { titulo: 'Outro quadro', papel: 'hoje', novoBoard: 'Quadro 2' })
   await goToday(page)
+  await page.reload()
   await expect(todayPanel(page).getByRole('button', { name: 'Outro quadro' })).toBeVisible({
     timeout: 3000,
   })

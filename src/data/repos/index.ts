@@ -1,4 +1,5 @@
 import { db } from '@/data/db'
+import { occursOn } from '@/data/recurrence'
 import type {
   ChecklistItem,
   Column,
@@ -169,11 +170,32 @@ const planBase = createRepo(db.planBlocks)
 export const planBlocksRepo = {
   ...planBase,
 
-  /** Blocos dos dias pedidos, em ordem de dia e horário. */
+  /**
+   * Blocos dos dias pedidos, em ordem de dia e horário. Séries recorrentes entram como
+   * uma ocorrência por dia em que acontecem, com o `id` da série e o `dia` da ocorrência.
+   */
   async listByDays(days: string[]): Promise<PlanBlock[]> {
-    return (await db.planBlocks.where('dia').anyOf(days).toArray())
+    const [avulsos, series] = await Promise.all([
+      db.planBlocks.where('dia').anyOf(days).toArray(),
+      db.planBlocks.filter((block) => block.recorrente).toArray(),
+    ])
+    const ocorrencias = series
       .filter((block) => block.removidoEm === null)
-      .sort((a, b) => (a.dia + a.inicio < b.dia + b.inicio ? -1 : 1))
+      .flatMap((block) =>
+        days.filter((day) => occursOn(block, day)).map((dia) => ({ ...block, dia })),
+      )
+    return [
+      ...avulsos.filter((block) => !block.recorrente && block.removidoEm === null),
+      ...ocorrencias,
+    ].sort((a, b) => (a.dia + a.inicio < b.dia + b.inicio ? -1 : 1))
+  },
+
+  /** Pula a série só neste dia; as outras ocorrências continuam. */
+  async skipOccurrence(id: string, day: string): Promise<void> {
+    const serie = await planBase.get(id)
+    if (!serie) return
+    const excecoes = [...new Set([...(serie.excecoes ?? []), day])]
+    await planBase.update(id, { excecoes })
   },
 }
 

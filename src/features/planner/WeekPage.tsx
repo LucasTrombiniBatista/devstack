@@ -1,4 +1,4 @@
-import {
+﻿import {
   DndContext,
   DragOverlay,
   MouseSensor,
@@ -12,7 +12,7 @@ import {
 } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import { useLiveQuery } from 'dexie-react-hooks'
-import { CalendarPlus, ChevronLeft, ChevronRight } from 'lucide-react'
+import { CalendarPlus, ChevronLeft, ChevronRight, Repeat } from 'lucide-react'
 import { useMemo, useState, type PointerEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
@@ -27,10 +27,13 @@ import {
 import { DEFAULT_SETTINGS, SETTINGS_ID } from '@/data/seed'
 import type { Card, PlanBlock, Track } from '@/data/types'
 import { TrackDot } from '@/features/tracks/TrackDot'
-import { formatDuration, formatWeekRange, isoWeek, localDate, normalizeText } from '@/lib/format'
+import { byOrdem } from '@/lib/order'
+import { formatDuration, formatWeekRange, isoWeek, normalizeText } from '@/lib/format'
 import { cn } from '@/lib/utils'
 import { moveBlock, planCard, resizeBlock } from './actions'
 import { PlanDialog } from './PlanDialog'
+import { useToday } from './useToday'
+import { blockKey } from '@/data/recurrence'
 import {
   blockMin,
   DAY_END,
@@ -50,9 +53,9 @@ const HOURS = Array.from({ length: (DAY_END - DAY_START) / 60 }, (_, i) => DAY_S
 async function loadWeek(days: string[]) {
   const [board] = await boardsRepo.list()
   if (!board) return null
-  const [columns, cards, tracks, blocks, settings] = await Promise.all([
+  const [columns, cards, tracks, allBlocks, settings] = await Promise.all([
     columnsRepo.listByBoard(board.id),
-    cardsRepo.listByBoard(board.id),
+    cardsRepo.list().then((all) => all.sort(byOrdem)),
     tracksRepo.listSorted(),
     planBlocksRepo.listByDays(days),
     settingsRepo.get(SETTINGS_ID),
@@ -60,11 +63,13 @@ async function loadWeek(days: string[]) {
   const plannable = new Set(
     columns.filter((c) => c.papel && PLANNABLE.has(c.papel)).map((c) => c.id),
   )
+  const byId = new Map(cards.map((card) => [card.id, card]))
   return {
-    cards: new Map(cards.map((card) => [card.id, card])),
+    cards: byId,
     candidates: cards.filter((card) => plannable.has(card.columnId)),
     tracks: new Map(tracks.map((track) => [track.id, track])),
-    blocks,
+    // Bloco de card excluído não aparece nem conta na capacidade.
+    blocks: allBlocks.filter((block) => byId.has(block.cardId)),
     capacity: settings?.capacidadeSemanalMin ?? DEFAULT_SETTINGS.capacidadeSemanalMin,
   }
 }
@@ -164,7 +169,7 @@ function BlockView({
   onOpen: () => void
 }) {
   const { setNodeRef, attributes, listeners, transform, isDragging } = useDraggable({
-    id: `block:${block.id}`,
+    id: `block:${blockKey(block)}`,
   })
   const [previewFim, setPreviewFim] = useState<number | null>(null)
   const [resizing, setResizing] = useState<{ y: number; fim: number } | null>(null)
@@ -214,6 +219,7 @@ function BlockView({
         <span className="flex items-center gap-1 text-[0.625rem] font-bold text-card-muted">
           <TrackDot cor={track?.cor} onCard className="size-1.5" />
           {block.inicio}–{fromMin(fim)}
+          {block.recorrente && <Repeat aria-hidden className="size-2.5" />}
         </span>
         <span className="text-[0.75rem] leading-4 font-bold wrap-anywhere">{card?.titulo}</span>
       </div>
@@ -284,7 +290,7 @@ export function WeekPage() {
   const [query, setQuery] = useState('')
   const [editing, setEditing] = useState<Editing>(null)
   const [dragging, setDragging] = useState<Card | null>(null)
-  const [today] = useState(() => localDate(new Date()))
+  const today = useToday()
 
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 6 } }),
@@ -335,7 +341,7 @@ export function WeekPage() {
     const [kind, id] = String(active.id).split(':')
     if (kind === 'card') void planCard(id, dia, minute)
     else {
-      const block = blocks.find((b) => b.id === id)
+      const block = blocks.find((b) => blockKey(b) === id)
       if (block) void moveBlock(block, dia, minute)
     }
   }
@@ -451,11 +457,11 @@ export function WeekPage() {
                     const card = cards.get(block.cardId)
                     return (
                       <BlockView
-                        key={block.id}
+                        key={blockKey(block)}
                         block={block}
                         card={card}
                         track={card?.trackId ? tracks.get(card.trackId) : undefined}
-                        label={`${card?.titulo ?? ''}, ${shortDay(day)} ${block.inicio}–${block.fim}`}
+                        label={`${card?.titulo ?? ''}, ${shortDay(day)} ${block.inicio}–${block.fim}${block.recorrente ? `, ${t('week.repeats')}` : ''}`}
                         onOpen={() => card && setEditing({ card, block })}
                       />
                     )

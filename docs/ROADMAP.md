@@ -115,11 +115,13 @@ Como ficou:
 
 - A grade vai das 7h às 23h em fatias de 30 minutos. A lista ao lado traz os cards de Backlog, Esta semana e Hoje; cada um tem também um botão de agenda para planejar pelo teclado.
 - O bloco nasce com a estimativa do card, entre 30 min e 2h (1h quando não há estimativa). Planejar tira o card do Backlog e o põe em "Esta semana".
-- A tela Hoje (`/today`) mostra a meta, o que está planejado para o dia e os cards da coluna Hoje. A meta vale do dia em que foi definida em diante, até mudar de novo.
-- Encerrar o dia mostra o foco e os cards concluídos e empurra para amanhã, no mesmo horário, os blocos de cards não concluídos.
+- A tela Hoje (`/today`) mostra a meta, o que está planejado para o dia e os cards da coluna Hoje de todos os quadros, mais os cards não concluídos com data-alvo no dia. A meta vale do dia em que foi definida em diante, até mudar de novo. Hoje e Semana trocam de dia sozinhas na meia-noite.
+- Encerrar o dia mostra o foco e os cards concluídos e empurra para amanhã, no mesmo horário, os blocos de cards não concluídos. Dois blocos podem dividir o mesmo horário.
+- Blocos recorrentes: no diálogo de planejar, "Repetir toda semana" com os dias da semana escolhidos. A série começa no dia escolhido; dá para remover só um dia ou a série. Empurrar uma ocorrência pula só aquele dia e cria um bloco avulso amanhã.
+- Excluir um card remove também os blocos planejados dele.
 - A capacidade semanal fica em Configurações → Planejamento.
 
-Fora do MVP: blocos recorrentes e tela de revisão semanal (V1).
+Fora do MVP: tela de revisão semanal (V1).
 
 **Pronto quando:** o fluxo 2 da seção 4 funciona de ponta a ponta com o backlog importado.
 

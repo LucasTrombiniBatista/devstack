@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react'
 import { HashRouter, Navigate, Route, Routes } from 'react-router'
 import { startApplyingSettings } from '@/app/apply-settings'
 import { AppShell } from '@/app/layout/AppShell'
+import { PageFallback } from '@/app/layout/PageFallback'
 import { BoardPage } from '@/features/board/BoardPage'
 import { seedLabels } from '@/app/seed-labels'
 import { useSettings } from '@/app/settings-store'
@@ -39,7 +40,7 @@ export function App() {
   return (
     <HashRouter>
       <TimerRunner />
-      <Suspense fallback={null}>
+      <Suspense fallback={<PageFallback />}>
         <Routes>
           <Route element={<AppShell />}>
             <Route index element={<Navigate to={`/${startPage}`} replace />} />

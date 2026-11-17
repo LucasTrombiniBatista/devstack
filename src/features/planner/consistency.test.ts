@@ -45,15 +45,51 @@ describe('pendingBlocks', () => {
     expect(await pendingBlocks('2026-11-11')).toEqual([])
   })
 
-  // Bug: `recorrente` existe no tipo (src/data/types.ts:96), mas nada o lê. listByDays
-  // filtra só por `dia` (src/data/repos/index.ts:173), então um bloco recorrente semanal
-  // não aparece na semana seguinte nem entra nos pendentes do dia.
-  it.fails('bloco recorrente aparece no mesmo dia da semana seguinte', async () => {
+  it('bloco recorrente aparece no mesmo dia da semana seguinte', async () => {
     const { add } = await setup()
     const a = await add('Inglês')
     await block(a.id, '2026-11-11', '07:00', '07:30', true)
     const next = await pendingBlocks('2026-11-18')
     expect(next.map((p) => p.card.titulo)).toEqual(['Inglês'])
+  })
+})
+
+describe('blocos recorrentes', () => {
+  it('repete só nos dias da semana escolhidos, a partir do início', async () => {
+    const { add } = await setup()
+    const a = await add('Inglês')
+    // 2026-11-11 é quarta; repete segunda (1) e quarta (3).
+    await planCard(a.id, '2026-11-11', 7 * 60, 30, [1, 3])
+    const week = [
+      '2026-11-09',
+      '2026-11-10',
+      '2026-11-11',
+      '2026-11-16',
+      '2026-11-17',
+      '2026-11-18',
+    ]
+    const dias = (await planBlocksRepo.listByDays(week)).map((b) => b.dia)
+    // A segunda 09/11 é antes do início, então não entra.
+    expect(dias).toEqual(['2026-11-11', '2026-11-16', '2026-11-18'])
+  })
+
+  it('pular um dia não mexe nos outros', async () => {
+    const { add } = await setup()
+    const a = await add('Inglês')
+    const rec = await planCard(a.id, '2026-11-11', 7 * 60, 30, [3])
+    await planBlocksRepo.skipOccurrence(rec!.id, '2026-11-18')
+    const dias = (await planBlocksRepo.listByDays(['2026-11-11', '2026-11-18', '2026-11-25'])).map(
+      (b) => b.dia,
+    )
+    expect(dias).toEqual(['2026-11-11', '2026-11-25'])
+  })
+
+  it('remover a série tira todas as ocorrências', async () => {
+    const { add } = await setup()
+    const a = await add('Inglês')
+    const rec = await planCard(a.id, '2026-11-11', 7 * 60, 30, [3])
+    await planBlocksRepo.remove(rec!.id)
+    expect(await planBlocksRepo.listByDays(['2026-11-11', '2026-11-18'])).toEqual([])
   })
 })
 
@@ -90,14 +126,28 @@ describe('pushPending', () => {
     expect(await pushPending('2026-11-11')).toBe(0)
   })
 
-  // Bug: empurrar um bloco recorrente muda o `dia` da série inteira em vez de pular só a
-  // ocorrência de hoje (src/features/planner/actions.ts:72).
-  it.fails('bloco recorrente continua na data original depois de empurrar', async () => {
+  it('bloco recorrente continua na data original depois de empurrar', async () => {
     const { add } = await setup()
     const a = await add('Inglês')
     const rec = await block(a.id, '2026-11-11', '07:00', '07:30', true)
     await pushPending('2026-11-11')
     expect((await planBlocksRepo.get(rec.id))!.dia).toBe('2026-11-11')
+    // Só a ocorrência de hoje some; amanhã ganha um bloco avulso e a série segue.
+    expect(await pendingBlocks('2026-11-11')).toEqual([])
+    const amanha = await planBlocksRepo.listByDays(['2026-11-12'])
+    expect(amanha).toMatchObject([{ cardId: a.id, inicio: '07:00', recorrente: false }])
+    expect(await planBlocksRepo.listByDays(['2026-11-18'])).toMatchObject([{ id: rec.id }])
+  })
+
+  it('pode empurrar para um horário que já tem bloco amanhã', async () => {
+    const { add } = await setup()
+    const a = await add('A')
+    const b = await add('B')
+    await block(a.id, '2026-11-11', '19:00', '20:00')
+    await block(b.id, '2026-11-12', '19:00', '20:00')
+    expect(await pushPending('2026-11-11')).toBe(1)
+    const amanha = await planBlocksRepo.listByDays(['2026-11-12'])
+    expect(amanha.map((x) => x.inicio)).toEqual(['19:00', '19:00'])
   })
 })
 

@@ -9,12 +9,13 @@ import {
   Sun,
   type LucideIcon,
 } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router'
 import type { Track } from '@/data/types'
 import { useSettings } from '@/app/settings-store'
 import { useUi } from '@/app/ui-store'
+import { PageFallback } from './PageFallback'
 import { useBoardView } from '@/features/board/filters'
 import { useBoardData } from '@/features/board/useBoardData'
 import { captureTarget, createCardFromUrl } from '@/features/capture/capture'
@@ -238,7 +239,9 @@ export function AppShell() {
 
       {/* relative: elementos absolutos (inputs invisíveis) ficam presos à área que rola. */}
       <main className="relative min-h-0 min-w-0 flex-1 overflow-auto">
-        <Outlet />
+        <Suspense fallback={<PageFallback />}>
+          <Outlet />
+        </Suspense>
       </main>
 
       <CardSheet />
