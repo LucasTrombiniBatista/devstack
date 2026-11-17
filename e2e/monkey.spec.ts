@@ -88,6 +88,9 @@ const FILLABLE =
 const DRAGGABLE = '[data-card-id],[data-plan-card],[aria-roledescription]'
 
 async function monkey(page: Page, seed: number) {
+  // Sem isso, um clique num elemento que sumiu espera até o fim do teste (sem
+  // actionTimeout no config) e o monkey estoura o tempo em máquina lenta, como no CI.
+  page.setDefaultTimeout(2000)
   const errors: string[] = []
   page.on('console', (m) => {
     if (m.type() === 'error') errors.push(`console.error: ${m.text()}`)
@@ -196,7 +199,7 @@ async function monkey(page: Page, seed: number) {
 
 for (const seed of [1, 7, 42, 1337, 2026]) {
   test(`monkey desktop, seed ${seed}`, async ({ page }) => {
-    test.setTimeout(480_000)
+    test.setTimeout(240_000)
     await page.setViewportSize({ width: 1280, height: 800 })
     await monkey(page, seed)
   })
@@ -204,7 +207,7 @@ for (const seed of [1, 7, 42, 1337, 2026]) {
 
 for (const seed of [3, 99]) {
   test(`monkey mobile 390px, seed ${seed}`, async ({ page }) => {
-    test.setTimeout(480_000)
+    test.setTimeout(240_000)
     await page.setViewportSize({ width: 390, height: 844 })
     await monkey(page, seed)
   })
